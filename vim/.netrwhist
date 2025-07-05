@@ -1,0 +1,5 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =3
+let g:netrw_dirhist_3='/home/clarabear'
+let g:netrw_dirhist_2='/home/clarabear/Notion_Integration'
+let g:netrw_dirhist_1='/home/clarabear/CS_116/hello'
