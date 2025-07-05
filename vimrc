@@ -51,3 +51,11 @@ if has('syntax') && has('eval')
   packadd! matchit
 endif
 
+" Plugins
+call plug#begin()
+
+" List plugins here
+Plug 'lervag/vimtex'
+Plug 'arzg/vim-colors-xcode'
+
+call plug#end()
