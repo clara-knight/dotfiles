@@ -56,6 +56,8 @@ call plug#begin()
 
 " List plugins here
 Plug 'lervag/vimtex'
-Plug 'arzg/vim-colors-xcode'
+Plug 'dylanaraps/wal.vim'
 
 call plug#end()
+
+colorscheme wal
