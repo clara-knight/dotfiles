@@ -1,0 +1,17 @@
+-- ~/.config/xmobar/xmmobarrc
+Config  { font = "Noto Mono 10"
+        , bgColor = "#282a36"
+        , fgColor = "#f8f8f2"
+        , position = TopHM 24 0 0 0 2
+        , commands = [ Run UnsafeStdinReader
+                     , Run Battery ["BAT0", "-t", "Battery: <left>% - <timeleft> [<acstatus>]"] 250
+                     , Run Date "%a %m/%d/%Y" "date" 600
+                     , Run Com "sh" ["-c", "echo Fall 2025: $(($(date +%W) - 38))/10"] "termweek" 36000
+                     , Run Com "sh" ["-c", "echo $(($(date +%W) - 38))"] "termcountdown" 36000
+                     , Run Date "%H:%M:%S" "time" 10
+                     , Run Memory ["-t", "Memory: <usedratio>%"] 100
+                     ]
+        , sepChar = "%"
+        , alignSep = "}{" 
+        , template = " %UnsafeStdinReader% }(%battery%){ %memory% | %date% (%termweek%) %time%  "
+        }
