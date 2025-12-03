@@ -70,7 +70,7 @@ ZSH_THEME="headline"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git copyzshell)
+#plugins=(git copyzshell)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -102,15 +102,10 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-function guicompile () {
-	g++ --std=c++11 $1 $(pkg-config gtkmm-3.0 --cflags --libs | sed 's/ -I/ -isystem /g')
-}
-
-function test() {
-	echo $1
-	echo $2
-}
 
 # Created by `pipx` on 2025-04-04 08:21:29
 export PATH="$PATH:/home/clarabear/.local/bin"
+export PATH="$PATH:/home/clara/anaconda3/bin:$PATH"
 
+#
+wal --theme ~/dotfiles/hellwal/colors.json
