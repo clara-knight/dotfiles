@@ -1,33 +1,8 @@
 -- VimTeX configuration for LaTeX editing
 -- Auto-detect WSL2 vs native Linux and use appropriate pdflatex command
-local function is_wsl2()
-    local handle = io.open('/proc/version', 'r')
-    if handle then
-        local content = handle:read('*all')
-        handle:close()
-        return content:lower():match('microsoft') ~= nil
-    end
-    return false
-end
-
-local pdflatex_cmd = 'pdflatex'
-if is_wsl2() then
-    pdflatex_cmd = 'pdflatex.exe'
-end
 
 vim.g.vimtex_view_method = 'zathura'
-vim.g.vimtex_compiler_method = 'generic'
-vim.g.vimtex_compiler_generic = {
-    command = pdflatex_cmd,
-    args = {
-        '-synctex=1',
-        '-interaction=nonstopmode',
-        '-file-line-error',
-        '%f',
-    },
-    callback = 1,
-    continuous = 0,  -- Set to 0 since pdflatex doesn't support continuous mode like latexmk
-}
+vim.g.vimtex_compiler_method = 'latexmk'
 
 -- Enable quickfix window for errors
 vim.g.vimtex_quickfix_mode = 0
