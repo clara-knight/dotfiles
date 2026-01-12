@@ -108,5 +108,4 @@ export PATH="$PATH:$HOME/.local/bin"
 export PATH="$PATH:$HOME/anaconda3/bin:$PATH"
 export PATH=/usr/local/texlive/2025/bin/x86_64-linux:$PATH
 
-
 wal --theme ~/dotfiles/hellwal/colors.json
