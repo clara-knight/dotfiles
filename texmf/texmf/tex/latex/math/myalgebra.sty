@@ -1,0 +1,60 @@
+\ProvidesPackage{myalgebra}
+
+% Packages
+\RequirePackage{amsmath,amsfonts,amsthm, amssymb, mathtools}
+
+%--------Theorem Environments--------
+\theoremstyle{plain} %--- default
+\newtheorem{thm}{Theorem}
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{facts}[thm]{Facts}
+\newtheorem{fact}[thm]{Fact}
+\newtheorem{clm}[thm]{Claim}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{conj}[thm]{Conjecture}
+\newtheorem{quest}[thm]{Question}
+
+\theoremstyle{definition}
+\newtheorem{defn}{Definition}
+\newtheorem{defns}[defn]{Definitions}
+\newtheorem{con}[thm]{Construction}
+\newtheorem*{exmp}{Example}
+\newtheorem*{exmps}{Examples}
+\newtheorem{notn}[thm]{Notation}
+\newtheorem{notns}[thm]{Notations}
+\newtheorem{addm}[thm]{Addendum}
+\newtheorem{exer}[thm]{Exercise}
+
+\theoremstyle{remark}
+\newtheorem{rem}[thm]{Remark}
+\newtheorem{rems}[thm]{Remarks}
+\newtheorem{warn}[thm]{Warning}
+\newtheorem{sch}[thm]{Scholium}
+% Brackets
+\newcommand{\bra}[1]{\left(#1\right)}
+\newcommand{\sbra}[1]{\left[#1\right]}
+\newcommand{\cbra}[1]{\left\{#1\right\}}
+
+% Numbers
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\F}{\mathbb{F}}
+%\newcommand{\H}{\mathbb{H}}
+
+% Vector spaces & modules
+\DeclareMathOperator{\spn}{span}
+\DeclareMathOperator{\vdim}{dim}
+\DeclareMathOperator{\Det}{det}
+\DeclareMathOperator{\proj}{proj}
+\renewcommand{\vec}[1]{\mathbf{#1}}
+
+% Maps
+\DeclareMathOperator{\kernel}{ker}
+\DeclareMathOperator{\imag}{im}
+\DeclareMathOperator{\Hom}{Hom}
+\newcommand{\krn}[1]{\kernel(#1)}
+\newcommand{\img}[1]{\imag(#1)}
