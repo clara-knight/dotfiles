@@ -104,8 +104,8 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # Created by `pipx` on 2025-04-04 08:21:29
-export PATH="$PATH:/home/clarabear/.local/bin"
-export PATH="$PATH:/home/clara/anaconda3/bin:$PATH"
+export PATH="$PATH:$HOME/.local/bin"
+export PATH="$PATH:$HOME/anaconda3/bin:$PATH"
 export PATH=/usr/local/texlive/2025/bin/x86_64-linux:$PATH
 
 
