@@ -106,6 +106,7 @@ source $ZSH/oh-my-zsh.sh
 # Created by `pipx` on 2025-04-04 08:21:29
 export PATH="$PATH:/home/clarabear/.local/bin"
 export PATH="$PATH:/home/clara/anaconda3/bin:$PATH"
+export PATH=/usr/local/texlive/2025/bin/x86_64-linux:$PATH
 
-#
+
 wal --theme ~/dotfiles/hellwal/colors.json
