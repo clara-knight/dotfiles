@@ -1,5 +1,18 @@
-\LoadClass[letterpaper]{scrartcl} % A4 paper and 11pt font size
 \ProvidesClass{homework}
+\LoadClass[letterpaper]{scrartcl} % A4 paper and 11pt font size
+
+\RequirePackage{xkeyval}
+\def\myclass{}
+\def\hwnumber{}
+\def\instructor{}
+\def\myname{}
+
+\define@key{homework.cls}{myclass}{\def\myclass{#1}}
+\define@key{homework.cls}{hwnumber}{\def\hwnumber{#1}}
+\define@key{homework.cls}{instructorname}{\def\instructor{#1}}
+\define@key{homework.cls}{myname}{\def\myname{#1}}
+
+\ProcessOptionsX
 
 \RequirePackage{mytheme}
 
@@ -27,13 +40,15 @@
 %----------------------------------------------------------------------------------------
 
 % Custom header with full-width table
-\chead{
-	\upshape \begin{tabularx}
-		{\textwidth}{@{}>{\raggedright\arraybackslash}X>{\centering\arraybackslash}X>{\raggedleft\arraybackslash}X@{}}
-		Math 110BH, W26 & \textbf{Homework } & \phantom{placeholder} \\
-		Instructor: & & Student: Clara Knight
-	\end{tabularx}
-}
+\chead{\upshape\begin{tabularx}
+	{\textwidth}{@{}
+		>{\raggedright\arraybackslash}X
+		>{\centering\arraybackslash}X
+		>{\raggedleft\arraybackslash}X
+		@{}}
+	\myclass & \textbf{Homework \hwnumber} & \phantom{placeholder} \\
+	Instructor: \instructor & & \myname
+\end{tabularx}}
 
 \newcounter{problemcounter}
 \newenvironment{problem}[1]
