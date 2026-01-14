@@ -168,9 +168,9 @@ local math_autosnippets = {
     s({ trig = 'approx', snippetType = 'autosnippet', condition = in_mathzone }, t('\\approx')),
     s({ trig = 'equiv', snippetType = 'autosnippet', condition = in_mathzone }, t('\\equiv')),
     s({ trig = 'notin', snippetType = 'autosnippet', condition = in_mathzone }, t('\\notin')),
-    s({ trig = 'subset', snippetType = 'autosnippet', condition = in_mathzone }, t('\\subset')),
+    s({ trig = 'subset', condition = in_mathzone }, t('\\subset')),
     s({ trig = 'subseteq', snippetType = 'autosnippet', condition = in_mathzone }, t('\\subseteq')),
-    s({ trig = 'superset', snippetType = 'autosnippet', condition = in_mathzone }, t('\\supset')),
+    s({ trig = 'superset', condition = in_mathzone }, t('\\supset')),
     s({ trig = 'supseteq', snippetType = 'autosnippet', condition = in_mathzone }, t('\\supseteq')),
     
     -- Sets
