@@ -30,8 +30,8 @@
 \RequirePackage{geometry}
 \def \v {\vspace{0.2cm}}
 \geometry{
-	left=19mm, % left margin
-	right=19mm, % right margin
+	left=21mm, % left margin
+	right=21mm, % right margin
 	bottom=25mm,
 }
 \fontsize{10}{20}\selectfont
@@ -50,9 +50,9 @@
 	Instructor: \instructor & & \myname
 \end{tabularx}}
 
-\newcounter{problemcounter}
-\newenvironment{problem}[1]
-{\refstepcounter{problemcounter}\par\noindent\theproblemcounter. #1\par\vspace{0.5em}}
-{\par\vspace{1em}}
+%\newcounter{problemcounter}
+%\newenvironment{problem}[1]
+%{\refstepcounter{problemcounter}\par\noindent\theproblemcounter. #1\par\vspace{0.5em}}
+%{\par\vspace{1em}}
 
 

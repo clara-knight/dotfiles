@@ -1,7 +1,7 @@
 \ProvidesPackage{myalgebra}
 
 % Packages
-\RequirePackage{amsmath,amsfonts,amsthm, amssymb, mathtools}
+\RequirePackage{amsmath, amsfonts, amsthm, amssymb, mathtools, thmtools}
 
 %--------Theorem Environments--------
 \theoremstyle{plain} %--- default
@@ -31,6 +31,15 @@
 \newtheorem{rems}[thm]{Remarks}
 \newtheorem{warn}[thm]{Warning}
 \newtheorem{sch}[thm]{Scholium}
+
+% Problems environment
+\declaretheoremstyle[
+	headfont=\normalfont\bfseries,
+	bodyfont=\normalfont,
+	headpunct=:,
+	postheadspace=.5em
+	]{prob}
+\declaretheorem[style=prob]{problem}
 % Brackets
 \newcommand{\bra}[1]{\left(#1\right)}
 \newcommand{\sbra}[1]{\left[#1\right]}
