@@ -37,9 +37,9 @@ local text_autosnippets = {
         i(2), 
         t({ '', '\\end{' }), i(3, 'environment'), t('}') 
     }),
-    s({ trig = 'equation', snippetType = 'autosnippet' }, { 
+    s({ trig = 'equation'}, { 
         t('\\begin{equation}'), t({ '', '\t' }), 
-        i(1, 'E = mc^2'), 
+        i(1, ''), 
         t({ '', '\\end{equation}' }) 
     }),
     s({ trig = 'align', snippetType = 'autosnippet' }, { 

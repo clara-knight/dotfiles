@@ -49,10 +49,3 @@
 	\myclass & \textbf{Homework \hwnumber} & \phantom{placeholder} \\
 	Instructor: \instructor & & \myname
 \end{tabularx}}
-
-%\newcounter{problemcounter}
-%\newenvironment{problem}[1]
-%{\refstepcounter{problemcounter}\par\noindent\theproblemcounter. #1\par\vspace{0.5em}}
-%{\par\vspace{1em}}
-
-
