@@ -20,7 +20,7 @@
 \RequirePackage{lastpage}
 \pagestyle{scrheadings} % Use KOMA-Script page style
 \clearpairofpagestyles % Clear all headers and footers first
-\cfoot{\raisebox{-1.5pt}{Page \thepage\ of \pageref{LastPage}}} % Page numbering for center footer
+\cfoot{\raisebox{-.083333in}{Page \thepage\ of \pageref{LastPage}}} % Page numbering for center footer
 \KOMAoptions{headsepline=0.4pt, footsepline=0.4pt} % Header rule thickness
 \setlength{\headheight}{27.2pt} % Customize the height of the header for two lines
 \setlength{\footheight}{25pt} % Accommodate footer text with added spacing
@@ -30,9 +30,9 @@
 \RequirePackage{geometry}
 \def \v {\vspace{0.2cm}}
 \geometry{
-	left=21mm, % left margin
-	right=21mm, % right margin
-	bottom=25mm,
+	left=1.25in, % left margin
+	right=1.25in, % right margin
+	bottom=1in,
 }
 \fontsize{10}{20}\selectfont
 %----------------------------------------------------------------------------------------
