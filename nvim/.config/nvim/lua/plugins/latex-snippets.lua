@@ -113,8 +113,8 @@ local text_autosnippets = {
     }),
     
     -- Math display
-    s({ trig = 'display', snippetType = 'autosnippet' }, { t('\\['), i(1), t(' \\]') }),
-    s({ trig = 'inline', snippetType = 'autosnippet' }, { t('\\('), i(1), t('\\)') }),
+--    s({ trig = 'display', snippetType = 'autosnippet' }, { t('\\['), i(1), t(' \\]') }),
+--    s({ trig = 'inline', snippetType = 'autosnippet' }, { t('\\('), i(1), t('\\)') }),
 }
 
 -- Math mode auto-expand snippets (only expand in math mode)
