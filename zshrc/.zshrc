@@ -105,23 +105,10 @@ source $ZSH/oh-my-zsh.sh
 
 # Created by `pipx` on 2025-04-04 08:21:29
 export PATH="$PATH:$HOME/.local/bin"
-export PATH="$PATH:$HOME/anaconda3/bin:$PATH"
 export PATH=/usr/local/texlive/2025/bin/x86_64-linux:$PATH
 
-wal --theme ~/dotfiles/hellwal/colors.json
-
-
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$("$HOME/miniconda3/bin/conda" 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
+if [[ -z "$DISPLAY" ]]; then
+	wal --theme ~/dotfiles/hellwal/colors_tty.json
 else
-    if [ -f "$HOME/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "$HOME/miniconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="$HOME/miniconda3/bin:$PATH"
-    fi
+	wal --theme ~/dotfiles/hellwal/colors.json
 fi
-unset __conda_setup
-# <<< conda initialize <<<

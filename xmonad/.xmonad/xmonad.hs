@@ -18,4 +18,7 @@ main = do
         }
         `additionalKeysP`
         [ ("M-p", spawn "dmenu_run")
+		, ("<XF86AudioMute>",		 spawn "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle") -- F10
+		, ("<XF86AudioLowerVolume>", spawn "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-")  -- F11
+		, ("<XF86AudioRaiseVolume>", spawn "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+")  -- F11
         ]
