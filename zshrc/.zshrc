@@ -112,3 +112,15 @@ if [[ -z "$DISPLAY" ]]; then
 else
 	wal --theme ~/dotfiles/hellwal/colors.json
 fi
+
+
+# Added by Antigravity CLI installer
+export PATH="/home/clara/.local/bin:$PATH"
+
+# opencode
+export PATH=/home/clara/.opencode/bin:$PATH
+
+# codex
+codex() {
+	MODEL_API_KEY="$(<"$HOME/.config/codex/secrets/meta-api-key")" command codex "$@"
+}

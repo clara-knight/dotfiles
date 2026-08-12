@@ -10,10 +10,6 @@ Plug 'dylanaraps/wal.vim'
 -- Live preview for HTML/CSS
 Plug 'brianhuster/live-preview.nvim'
 
--- Telescope and dependencies
-Plug 'nvim-telescope/telescope.nvim'
-Plug 'nvim-lua/plenary.nvim'
-
 -- Mason, LSP, and completion
 Plug 'mason-org/mason.nvim'
 Plug 'mason-org/mason-lspconfig.nvim'
@@ -24,6 +20,7 @@ Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
 Plug 'L3MON4D3/LuaSnip'
+Plug 'saadparwaiz1/cmp_luasnip'
 
 -- Linting and formatting
 Plug 'mfussenegger/nvim-lint'
@@ -40,5 +37,8 @@ Plug 'lervag/vimtex'
 
 -- Discord rich presence
 Plug 'vyfor/cord.nvim'
+
+-- Prose
+Plug '/home/clara/wmclone'
 
 vim.call('plug#end')

@@ -22,6 +22,8 @@ This is a modular Neovim configuration designed for:
 
 The configuration uses **vim-plug** as the plugin manager and is organized into separate modules for easy maintenance.
 
+The validated baseline is **Neovim 0.12.4 or later**. Both the global and local leader keys are `\`.
+
 ---
 
 ## File Structure
@@ -61,7 +63,7 @@ The `init.lua` file loads modules in this order:
 
 ### Prerequisites
 
-1. **Neovim** (v0.8+ recommended)
+1. **Neovim** (v0.12.4 or later)
 2. **vim-plug** plugin manager
    ```bash
    sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
@@ -83,11 +85,11 @@ The `init.lua` file loads modules in this order:
    :PlugInstall
    ```
 
-4. **Install LSP servers** (optional, Mason will prompt):
+4. **Install LSP servers** (Mason manages these automatically):
    ```vim
    :Mason
    ```
-   Then select the LSP servers you need (clangd, pyright, texlab, etc.)
+   Mason automatically installs and enables only the configured servers: clangd, pyright, html, cssls, htmx, and texlab.
 
 ### Setting Up After Pulling from Repository (xstow)
 
@@ -125,7 +127,7 @@ If you're using **xstow** to manage your dotfiles (configuration lives in `~/.do
    ```vim
    :Mason
    ```
-   The configured LSP servers (clangd, pyright, html, cssls, htmx, texlab) should auto-install, but you can verify and install manually if needed.
+   The configured LSP servers (clangd, pyright, html, cssls, htmx, texlab) are ensured and automatically enabled by Mason.
 
 6. **Verify configuration loads**:
    ```vim
@@ -137,13 +139,11 @@ If you're using **xstow** to manage your dotfiles (configuration lives in `~/.do
 
 ### Platform Detection (WSL2 vs Native Linux)
 
-This configuration **automatically detects** whether it's running on WSL2 or native Linux:
+Texlab **automatically detects** whether it is running on WSL2 or native Linux for its build command:
 - **WSL2**: Uses `pdflatex.exe` (Windows executable)
 - **Native Linux**: Uses `pdflatex` (Linux executable)
 
-Detection is done by checking `/proc/version` for "microsoft" (WSL2 indicator). The configuration automatically selects the appropriate command, so no manual changes are needed when switching between platforms.
-
-**PDF Viewer**: Configured for Zathura (change `vimtex_view_method` in `vimtex.lua` if needed)
+VimTeX separately uses `latexmk` as its compiler. Zathura remains the configured PDF viewer (change `vimtex_view_method` in `vimtex.lua` if needed).
 
 ---
 
@@ -158,11 +158,13 @@ Detection is done by checking `/proc/version` for "microsoft" (WSL2 indicator). 
 
 ### Diagnostics (LSP)
 
+The global and local leader key is `\`, so every `<leader>` sequence below begins with `\`.
+
 | Key | Action | Description |
 |-----|-------|-------------|
 | `<leader>vd` | Open float | Show diagnostic in floating window |
-| `[d` | Next diagnostic | Jump to next diagnostic |
-| `]d` | Previous diagnostic | Jump to previous diagnostic |
+| `[d` | Previous diagnostic | Jump to previous diagnostic |
+| `]d` | Next diagnostic | Jump to next diagnostic |
 
 ### LSP (Language Server Protocol)
 
@@ -189,6 +191,10 @@ These keybindings work when an LSP server is active:
 | `<C-p>` | Previous item | Select previous completion item |
 | `<CR>` | Confirm | Accept selected completion |
 | `<C-e>` | Abort | Close completion menu |
+| `/` or `?` | Buffer completion | Complete words from the current buffer while searching |
+| `:` | Path and command completion | Complete filesystem paths and Ex commands |
+
+The `cmp_luasnip` adapter provides the LuaSnip completion source used by nvim-cmp.
 
 ### VimTeX (LaTeX Editing)
 
@@ -231,6 +237,7 @@ LaTeX snippets are available via LuaSnip. Type the trigger and press `<Tab>` to 
 #### Mason & LSP
 - **Plugins**: `mason.nvim`, `mason-lspconfig.nvim`, `nvim-lspconfig`
 - **Location**: `lua/plugins/lsp.lua`
+- **Configuration**: Uses Neovim's native `vim.lsp.config()` API. Mason automatically enables only the six configured servers.
 - **Configured LSP Servers**:
   - `clangd` - C/C++
   - `pyright` - Python
@@ -239,12 +246,12 @@ LaTeX snippets are available via LuaSnip. Type the trigger and press `<Tab>` to 
   - `htmx` - HTMX
   - `texlab` - LaTeX
 - **Installation**: Use `:Mason` command or servers auto-install via Mason
-- **Configuration**: Edit `lua/plugins/lsp.lua` to add/modify servers
+- **Configuration**: Edit `lua/plugins/lsp.lua` to add or modify the server list and native LSP settings
 
 #### nvim-cmp (Completion)
-- **Plugin**: `nvim-cmp` + sources
+- **Plugins**: `nvim-cmp`, `cmp-nvim-lsp`, `cmp-buffer`, `cmp-path`, `cmp-cmdline`, and `cmp_luasnip` with `LuaSnip`
 - **Location**: `lua/plugins/cmp.lua`
-- **Sources**: LSP, LuaSnip, buffer, path
+- **Sources**: LSP, LuaSnip, buffer, and path in insert mode; buffer completion for `/` and `?`; path and Ex-command completion for `:`
 - **Configuration**: Edit `lua/plugins/cmp.lua` to modify completion sources or keybindings
 
 #### Treesitter
@@ -260,7 +267,7 @@ LaTeX snippets are available via LuaSnip. Type the trigger and press `<Tab>` to 
 - **Location**: `lua/plugins/linting.lua`
 - **Configured Linters**:
   - Python: `ruff`
-- **Auto-linting**: Triggers on save, text change, and insert leave
+- **Auto-linting**: Triggers on save and insert leave
 - **Configuration**: Add more linters in `lua/plugins/linting.lua`
 
 #### conform.nvim
@@ -269,7 +276,7 @@ LaTeX snippets are available via LuaSnip. Type the trigger and press `<Tab>` to 
 - **Configured Formatters**:
   - Python: `black`
 - **Format on Save**: Enabled (500ms timeout)
-- **LSP Fallback**: Enabled (uses LSP formatter if no formatter configured)
+- **LSP formatting fallback**: Enabled; Conform uses the LSP formatter when no configured formatter is available
 - **Configuration**: Edit `lua/plugins/formatting.lua`
 
 ### LaTeX Support
@@ -277,9 +284,10 @@ LaTeX snippets are available via LuaSnip. Type the trigger and press `<Tab>` to 
 #### VimTeX
 - **Plugin**: `vimtex`
 - **Location**: `lua/plugins/vimtex.lua`
-- **Compiler**: Auto-detects platform:
+- **Texlab build command**: Auto-detects platform:
   - **WSL2**: `pdflatex.exe`
   - **Native Linux**: `pdflatex`
+- **VimTeX compiler**: `latexmk` (configured separately from Texlab)
 - **Viewer**: Zathura (change `vimtex_view_method` to modify)
 - **Features**:
   - Syntax concealment (Greek letters, math symbols, etc.)
@@ -353,24 +361,21 @@ LaTeX snippets are available via LuaSnip. Type the trigger and press `<Tab>` to 
 
 ### Adding an LSP Server
 
-1. **Add to Mason list** in `lua/plugins/lsp.lua`:
-   ```lua
-   ensure_installed = { 'clangd', 'new-lsp-server', ... }
-   ```
-
-2. **Add to servers list** in `lua/plugins/lsp.lua`:
+1. **Add the server name** to the `servers` list in `lua/plugins/lsp.lua`:
    ```lua
    local servers = { 'clangd', 'new-lsp-server', ... }
    ```
 
-3. **Add custom configuration** (optional) in the loop:
+2. **Add custom configuration** (optional) with native LSP configuration:
    ```lua
-   if lsp == 'new-lsp-server' then
-       config.settings = {
+   vim.lsp.config('new-lsp-server', {
+       settings = {
            -- custom settings
-       }
-   end
+       },
+   })
    ```
+
+Mason uses the `servers` list for installation and automatic activation.
 
 ### Changing Keybindings
 
@@ -414,20 +419,13 @@ Edit `lua/options.lua` to modify:
 
 ### Changing LaTeX Compiler
 
-The configuration auto-detects WSL2 vs native Linux. To manually override, edit `lua/plugins/vimtex.lua`:
+Texlab automatically selects `pdflatex.exe` on WSL2 and `pdflatex` on native Linux. To change Texlab's build command, edit `lua/plugins/lsp.lua`. VimTeX separately uses `latexmk`; to change its compiler method, edit `lua/plugins/vimtex.lua`:
 
 ```lua
-vim.g.vimtex_compiler_generic = {
-    command = 'your-compiler',  -- change this (use .exe for WSL2)
-    args = {
-        '-synctex=1',
-        '-interaction=nonstopmode',
-        '%f',
-    },
-}
+vim.g.vimtex_compiler_method = 'latexmk'
 ```
 
-**Note**: The default configuration automatically detects the platform and uses `pdflatex.exe` on WSL2 or `pdflatex` on native Linux. Manual changes are usually not needed.
+Manual changes to the Texlab command are usually not needed.
 
 ### Changing PDF Viewer
 
@@ -448,9 +446,10 @@ vim.g.vimtex_view_method = 'your-viewer'  -- e.g., 'sumatra', 'mupdf'
 - **Plugins not installing**: Run `:PlugInstall` and check for errors
 - **LSP not working**: Ensure LSP server is installed (use `:Mason`)
 - **LaTeX not compiling**: 
-  - Verify `pdflatex` (or `pdflatex.exe` on WSL2) is in PATH
+  - Verify `pdflatex` (or `pdflatex.exe` on WSL2) is in PATH for Texlab builds
+  - Verify `latexmk` is in PATH for VimTeX compilation
   - Check that the platform is detected correctly (WSL2 vs native Linux)
-  - Configuration auto-detects platform, but verify the correct command is being used
+  - Configuration auto-detects the Texlab platform-specific build command, but verify the correct command is available
 - **Snippets not working**: Ensure LuaSnip is loaded (check `:checkhealth luasnip`)
 
 ---
@@ -485,4 +484,4 @@ This configuration uses various plugins maintained by their respective authors. 
 
 ---
 
-*Last updated: Configuration verified and tested on WSL2 and native Linux with Neovim 0.8+*
+*Last updated: Configuration verified and tested on WSL2 and native Linux with Neovim 0.12.4+*
