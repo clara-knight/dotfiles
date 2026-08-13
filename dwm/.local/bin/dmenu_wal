@@ -1,0 +1,9 @@
+#!/bin/sh
+# dmenu wrapper using active Pywal theme colors
+
+if [ -f "$HOME/.cache/wal/colors.sh" ]; then
+    . "$HOME/.cache/wal/colors.sh"
+    exec dmenu_run -fn "Noto Mono:size=10" -nb "$color0" -nf "$color7" -sb "$color1" -sf "$color15" "$@"
+else
+    exec dmenu_run -fn "Noto Mono:size=10" "$@"
+fi

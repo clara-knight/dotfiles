@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -e
+
+echo "=========================================="
+echo "      Rebuilding Suckless Environment     "
+echo "=========================================="
+
+dwm-recompile
+slstatus-recompile
+
+echo ""
+echo "🎉 All suckless utilities recompiled and stowed successfully!"

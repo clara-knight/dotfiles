@@ -107,7 +107,12 @@ source $ZSH/oh-my-zsh.sh
 export PATH="$PATH:$HOME/.local/bin"
 export PATH=/usr/local/texlive/2025/bin/x86_64-linux:$PATH
 
-if [[ -z "$DISPLAY" ]]; then
+if [[ "$TERM" == "fbterm"* ]]; then
+	export TERM=fbterm-256color
+	export NCURSES_NO_UTF8_ACS=1
+	wal -s --theme ~/dotfiles/hellwal/colors.json
+	[[ -f ~/.cache/wal/colors-tty.sh ]] && sed 's/\[ "${TERM:-none}" = "linux" \] && //' ~/.cache/wal/colors-tty.sh | sh
+elif [[ -z "$DISPLAY" ]]; then
 	wal --theme ~/dotfiles/hellwal/colors_tty.json
 else
 	wal --theme ~/dotfiles/hellwal/colors.json
@@ -124,3 +129,8 @@ export PATH=/home/clara/.opencode/bin:$PATH
 codex() {
 	MODEL_API_KEY="$(<"$HOME/.config/codex/secrets/meta-api-key")" command codex "$@"
 }
+
+# Window manager launchers
+alias startdwm="WM=dwm startx"
+alias startxmonad="WM=xmonad startx"
+

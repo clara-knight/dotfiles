@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -e
+
+DOTFILES="${DOTFILES:-$HOME/dotfiles}"
+DWM_SRC="$DOTFILES/dwm/dwm-src"
+
+echo "==> Recompiling dwm..."
+cd "$DWM_SRC"
+make PREFIX="$HOME/.local" clean install
+
+echo "✓ dwm successfully recompiled to ~/.local/bin/dwm!"

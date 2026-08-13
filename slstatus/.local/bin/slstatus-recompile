@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+set -e
+
+DOTFILES="${DOTFILES:-$HOME/dotfiles}"
+SLSTATUS_SRC="$DOTFILES/slstatus/slstatus-src"
+
+echo "==> Recompiling slstatus..."
+cd "$SLSTATUS_SRC"
+make PREFIX="$HOME/.local" clean install
+
+if pgrep -x slstatus >/dev/null; then
+    echo "==> Restarting running slstatus process..."
+    pkill -x slstatus || true
+    nohup "$HOME/.local/bin/slstatus" >/dev/null 2>&1 &
+fi
+
+echo "✓ slstatus successfully recompiled and restarted!"
