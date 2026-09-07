@@ -18,9 +18,9 @@ static const char unknown_str[] = "n/a";
 // discharging
 #define YELLOW "^c#D6D660^"
 // critical
-#define RED "^c#D66360"
+#define RED "^c#D66360^"
 // low
-#define ORANGE "^c#D67690"
+#define ORANGE "^c#D67690^"
 
 static const char *colored_battery(const char *bat) {
   const char *perc_str = battery_perc(bat);
@@ -33,7 +33,7 @@ static const char *colored_battery(const char *bat) {
   else if (perc < 40)
     return bprintf(ORANGE "%d%%", perc);
   else
-    return bprintf("%d%%", perc);
+    return bprintf("^c7^%d%%", perc);
 }
 
 static const char *colored_battery_state(const char *bat) {
@@ -56,7 +56,7 @@ static const char *colored_battery_state(const char *bat) {
 
 static const struct arg args[] = {
     /* function        format                               argument */
-    {colored_battery, "^c6^|^d^ ^c7^🔋 %s^d^", "BAT0"},
+    {colored_battery, "^c6^|^d^ ^c7^🔋^d^ %s^d^", "BAT0"},
     {colored_battery_state, " %s^d^", "BAT0"},
     {battery_remaining, " ^c7^(%s)^d^", "BAT0"},
     {ram_perc, " ^c2^|^d^  ^c7^%s%%^d^", NULL},
