@@ -3,6 +3,7 @@
 
 # Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
+export COLORTERM=truecolor
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time Oh My Zsh is loaded, in which case,
@@ -103,34 +104,19 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-# Created by `pipx` on 2025-04-04 08:21:29
-export PATH="$PATH:$HOME/.local/bin"
-export PATH=/usr/local/texlive/2025/bin/x86_64-linux:$PATH
+# PATH configuration
+export PATH="$HOME/.opencode/bin:/usr/local/texlive/2026/bin/x86_64-linux:$HOME/.local/bin:$PATH"
 
-if [[ "$TERM" == "fbterm"* ]]; then
-	export TERM=fbterm-256color
-	export NCURSES_NO_UTF8_ACS=1
-	wal -s --theme ~/dotfiles/hellwal/colors.json
-	[[ -f ~/.cache/wal/colors-tty.sh ]] && sed 's/\[ "${TERM:-none}" = "linux" \] && //' ~/.cache/wal/colors-tty.sh | sh
-elif [[ -z "$DISPLAY" ]]; then
-	wal --theme ~/dotfiles/hellwal/colors_tty.json
-else
-	wal --theme ~/dotfiles/hellwal/colors.json
+# Pywal colorscheme integration
+if [[ -z "$DISPLAY" ]] && (( $+commands[wal] )); then
+	wal -q --theme "$HOME/dotfiles/hellwal/colors_tty.json"
+elif [[ -f "$HOME/.cache/wal/sequences" ]]; then
+	(&>/dev/null cat "$HOME/.cache/wal/sequences" &)
 fi
-
-
-# Added by Antigravity CLI installer
-export PATH="/home/clara/.local/bin:$PATH"
-
-# opencode
-export PATH=/home/clara/.opencode/bin:$PATH
-
-# codex
-codex() {
-	MODEL_API_KEY="$(<"$HOME/.config/codex/secrets/meta-api-key")" command codex "$@"
-}
 
 # Window manager launchers
 alias startdwm="WM=dwm startx"
 alias startxmonad="WM=xmonad startx"
 
+# Aliases
+alias explore="$HOME/dicts/repl"
