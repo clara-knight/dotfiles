@@ -3,6 +3,9 @@
 *.tar.gz
 dwm/dwm-src/dwm
 slstatus/slstatus-src/slstatus
+st/st-src/st
+dmenu/dmenu-src/dmenu
+dmenu/dmenu-src/stest
 
 # Editor & runtime logs / swap files
 *.log
