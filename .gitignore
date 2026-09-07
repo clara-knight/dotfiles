@@ -1,0 +1,28 @@
+# Build artifacts & compiled binaries
+*.o
+*.tar.gz
+dwm/dwm-src/dwm
+slstatus/slstatus-src/slstatus
+
+# Editor & runtime logs / swap files
+*.log
+.*log
+*.swp
+*.swo
+*~
+
+# TeX Live cache & auxiliary files
+ls-R
+*.aux
+*.fls
+*.fdb_latexmk
+
+# AI & IDE workspace metadata
+.serena/
+.claude/
+.cursor/
+.idea/
+.vscode/
+
+# OS metadata
+.DS_Store

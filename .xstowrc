@@ -1,0 +1,8 @@
+ignore = ^.*-src$
+ignore = ^\.git.*$
+ignore = ^\.xstowrc$
+ignore = ^\.stow-local-ignore$
+ignore = ^INSTRUCTIONS\.md$
+ignore = ^README(\..*)?$
+ignore = ^LICENSE$
+ignore = ^.*\.diff$

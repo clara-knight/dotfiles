@@ -1,0 +1,8 @@
+.*-src
+\.git.*
+\.xstowrc
+\.stow-local-ignore
+INSTRUCTIONS\.md
+README.*
+LICENSE
+.*\.diff
