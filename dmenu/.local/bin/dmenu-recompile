@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -e
+
+DOTFILES="${DOTFILES:-$HOME/dotfiles}"
+DMENU_SRC="$DOTFILES/dmenu/dmenu-src"
+
+echo "==> Recompiling dmenu..."
+cd "$DMENU_SRC"
+make PREFIX="$HOME/.local" clean install
+
+echo "✓ dmenu successfully recompiled to ~/.local/bin/dmenu!"

@@ -8,6 +8,7 @@ echo "=========================================="
 dwm-recompile
 slstatus-recompile
 st-recompile
+dmenu-recompile
 
 echo ""
 echo "🎉 All suckless utilities recompiled and stowed successfully!"

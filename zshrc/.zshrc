@@ -108,10 +108,10 @@ source $ZSH/oh-my-zsh.sh
 export PATH="$HOME/.opencode/bin:/usr/local/texlive/2026/bin/x86_64-linux:$HOME/.local/bin:$PATH"
 
 # Pywal colorscheme integration
-if [[ -z "$DISPLAY" ]] && (( $+commands[wal] )); then
-	wal -q --theme "$HOME/dotfiles/hellwal/colors_tty.json"
-elif [[ -f "$HOME/.cache/wal/sequences" ]]; then
-	(&>/dev/null cat "$HOME/.cache/wal/sequences" &)
+if [[ -z "$DISPLAY" ]]; then
+	wal --theme ~/dotfiles/hellwal/colors_tty.json
+else
+	wal --theme ~/dotfiles/hellwal/colors.json
 fi
 
 # Window manager launchers
