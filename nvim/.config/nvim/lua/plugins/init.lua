@@ -41,4 +41,8 @@ Plug 'vyfor/cord.nvim'
 -- Prose
 Plug '/home/clara/wmclone'
 
+-- Markdown rendering
+Plug 'nvim-tree/nvim-web-devicons'
+Plug 'MeanderingProgrammer/render-markdown.nvim'
+
 vim.call('plug#end')

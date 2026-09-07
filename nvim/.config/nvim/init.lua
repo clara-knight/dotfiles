@@ -27,5 +27,6 @@ require('plugins.livepreview')
 require('plugins.vimtex')
 require('plugins.latex-snippets')
 require('plugins.cord')
+require('plugins.render-markdown')
 
 require('plugins.prose')

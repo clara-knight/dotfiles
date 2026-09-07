@@ -45,7 +45,8 @@ nvim/
         ├── vimtex.lua       # VimTeX (LaTeX) configuration
         ├── latex-snippets.lua  # LaTeX snippets for LuaSnip
         ├── livepreview.lua  # HTML/CSS live preview
-        └── cord.lua         # Discord rich presence
+        ├── cord.lua         # Discord rich presence
+        └── render-markdown.lua # Markdown rendering configuration
 ```
 
 ### Module Loading Order
@@ -221,6 +222,17 @@ LaTeX snippets are available via LuaSnip. Type the trigger and press `<Tab>` to 
 - Document structure: `section`, `subsection`
 - And many more...
 
+### Markdown Rendering (render-markdown.nvim)
+
+| Key | Action | Description |
+|-----|-------|-------------|
+| `<leader>mr` | Toggle markdown rendering | Toggle in-buffer rendered markdown elements on/off |
+
+Commands:
+- `:RenderMarkdown toggle` - Toggle markdown rendering
+- `:RenderMarkdown enable` - Enable markdown rendering
+- `:RenderMarkdown disable` - Disable markdown rendering
+
 ---
 
 ## Plugins & Configuration
@@ -324,6 +336,14 @@ LaTeX snippets are available via LuaSnip. Type the trigger and press `<Tab>` to 
 - **Location**: `lua/plugins/cord.lua`
 - **Purpose**: Show Neovim status in Discord
 - **Configuration**: Edit `lua/plugins/cord.lua`
+
+#### Markdown Rendering
+- **Plugins**: `render-markdown.nvim`, `nvim-web-devicons`
+- **Location**: `lua/plugins/render-markdown.lua`
+- **Purpose**: Beautiful in-buffer markdown rendering with icons, callout alerts, pipe tables, checkboxes, bullet points, and syntax-highlighted code blocks
+- **Keybinding**: `<leader>mr` (`\mr`) to toggle rendering
+- **Commands**: `:RenderMarkdown toggle`, `:RenderMarkdown enable`, `:RenderMarkdown disable`
+- **Configuration**: Edit `lua/plugins/render-markdown.lua`
 
 #### Colorscheme
 - **Plugin**: `wal.vim`

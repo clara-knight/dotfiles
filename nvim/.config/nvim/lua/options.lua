@@ -11,3 +11,4 @@ vim.opt.shiftwidth = 4
 vim.opt.timeoutlen = 500
 
 vim.opt.termguicolors = false
+vim.opt.conceallevel = 2
