@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -e
+
+DOTFILES="${DOTFILES:-$HOME/dotfiles}"
+ST_SRC="$DOTFILES/st/st-src"
+
+echo "==> Recompiling st..."
+cd "$ST_SRC"
+make PREFIX="$HOME/.local" clean install
+
+echo "✓ st successfully recompiled to ~/.local/bin/st!"
