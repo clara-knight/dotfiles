@@ -109,9 +109,9 @@ export PATH="$HOME/.opencode/bin:/usr/local/texlive/2026/bin/x86_64-linux:$HOME/
 
 # Pywal colorscheme integration
 if [[ -z "$DISPLAY" ]]; then
-	wal --theme ~/dotfiles/hellwal/colors_tty.json
+	wal -q --theme ~/dotfiles/hellwal/colors_tty.json
 else
-	wal --theme ~/dotfiles/hellwal/colors.json
+	wal -q --theme ~/dotfiles/hellwal/colors.json
 fi
 
 # Window manager launchers
