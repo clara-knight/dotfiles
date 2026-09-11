@@ -1,4 +1,5 @@
 /* See LICENSE file for copyright and license details. */
+#include <unistd.h>
 
 /* interval between updates (in ms) */
 const unsigned int interval = 1000;
@@ -8,6 +9,19 @@ static const char unknown_str[] = "n/a";
 
 /* maximum output string length */
 #define MAXLEN 2048
+
+/* To get which battery we are using */
+static const char *get_battery(void) {
+  static char bat[16] = "";
+  if (bat[0] != '\0')
+    return bat;
+  if (access("/sys/class/power_supply/BAT0", F_OK) == 0)
+    return strcpy(bat, "BAT0");
+  if (access("/sys/class/power_supply/BAT1", F_OK) == 0)
+    return strcpy(bat, "BAT1");
+
+  return NULL;
+}
 
 /* symbols, colors */
 // Battery
@@ -22,7 +36,8 @@ static const char unknown_str[] = "n/a";
 // low
 #define ORANGE "^c#D67690^"
 
-static const char *colored_battery(const char *bat) {
+static const char *colored_battery(const char *unused) {
+  const char *bat = get_battery();
   const char *perc_str = battery_perc(bat);
   if (!perc_str)
     return "";
@@ -54,19 +69,16 @@ static const char *colored_battery(const char *bat) {
     snprintf(rem_str, sizeof(rem_str), " ^c7^(%s)^d^", rem);
   }
 
-  return bprintf("^c6^|^d^ ^c7^" BATSYM "^d^ %s%d%%^d^ %s%s^d^%s",
-                 perc_color, perc,
-                 state_color, state_sym ? state_sym : "",
-                 rem_str);
+  return bprintf("^c6^|^d^ ^c7^" BATSYM "^d^ %s%d%%^d^ %s%s^d^%s", perc_color,
+                 perc, state_color, state_sym ? state_sym : "", rem_str);
 }
 
 static const struct arg args[] = {
     /* function        format                               argument */
-    {colored_battery,  "%s",                                "BAT0"},
-    {ram_perc,         " ^c2^|^d^  ^c7^%s%%^d^",            NULL},
-    {datetime,         " ^c3^|^d^ ^c7^%s^d^",               "%a %m/%d/%Y"},
+    {colored_battery, "%s", "BAT0"},
+    {ram_perc, " ^c2^|^d^  ^c7^%s%%^d^", NULL},
+    {datetime, " ^c3^|^d^ ^c7^%s^d^", "%a %m/%d/%Y"},
     //{run_command, " ^c7^(%s)^d^",
     // "sh -c 'echo Winter 2026: $(($(date +%W) - 0))/10'"},
-    {datetime,         " ^c1^|^d^ ^c7^%s^d^ ",              "%H:%M:%S"},
+    {datetime, " ^c1^|^d^ ^c7^%s^d^ ", "%H:%M:%S"},
 };
-
