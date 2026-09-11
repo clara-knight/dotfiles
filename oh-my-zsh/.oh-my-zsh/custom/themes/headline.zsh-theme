@@ -192,13 +192,13 @@ HL_RPROMPT=''
 
 
 # Show the clock, or don't show
-HL_CLOCK_MODE='off' # on|off
+HL_CLOCK_MODE='on' # on|off
 
 # Template for the clock
 HL_CLOCK_TEMPLATE="%{$faint%}..."
 
 # Command which outputs clock content
-HL_CLOCK_SOURCE='date "+%l:%M:%S %p"' # consider 'date +%+' for full date
+HL_CLOCK_SOURCE='date "+%T (%j)"'
 
 
 # Show non-zero exit code, include a guessed meaning too, or don't show
