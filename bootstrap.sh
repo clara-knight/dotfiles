@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# Ensure ~/.local/bin is in PATH for user-installed binaries & scripts
+export PATH="$HOME/.local/bin:$PATH"
+
 # ==============================================================================
 # Clara's Debian Post-Install Bootstrap Script
 # Modular, idempotent setup for shell, development toolchains, Neovim, and Suckless.
@@ -40,9 +43,9 @@ step_base_packages() {
     log_info "Installing base packages, build toolchain, and utilities..."
     sudo apt update
     sudo apt install -y \
-        build-essential cmake ninja-build gettext curl git pkg-config unzip \
-        libtool make automake autoconf zsh tmux xstow rsync ripgrep fd-find \
-        ca-certificates xclip libx11-dev libxinerama-dev libxft-dev xorg xinit
+        build-essential cmake ninja-build gettext curl wget git pkg-config unzip \
+        libtool make automake autoconf bison flex zsh tmux xstow rsync ripgrep fd-find \
+        ca-certificates fontconfig xclip libx11-dev libxinerama-dev libxft-dev xorg xinit
     log_done "Base packages installed."
 }
 
@@ -127,7 +130,7 @@ step_dotfiles() {
 step_shell() {
     log_info "Setting up Oh-My-Zsh..."
     if [ ! -d "$HOME/.oh-my-zsh" ]; then
-        sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+        KEEP_ZSHRC=yes sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
         rm -rf "$HOME/.oh-my-zsh/custom"
     fi
     local dotfiles_dir="${DOTFILES:-$HOME/dotfiles}"
@@ -209,15 +212,21 @@ step_build_zathura() {
         return
     fi
 
+    local runtime_deps=(
+        libgtk-3-0 libglib2.0-0 libjson-glib-1.0-0 libmagic1
+        libsqlite3-0 libxxhash0 libpoppler-glib8
+    )
     local build_deps=(
-        meson ninja-build pkg-config doxygen
+        meson doxygen
         libgtk-3-dev libglib2.0-dev libjson-glib-dev libmagic-dev
         libsqlite3-dev libxxhash-dev libpoppler-glib-dev
     )
 
-    log_info "Installing temporary build dependencies for Girara & Zathura..."
+    log_info "Installing build dependencies for Girara & Zathura..."
     sudo apt update
-    sudo apt install -y "${build_deps[@]}"
+    sudo apt install -y "${runtime_deps[@]}" "${build_deps[@]}" || sudo apt install -y "${build_deps[@]}"
+
+    export PKG_CONFIG_PATH="/usr/local/lib/x86_64-linux-gnu/pkgconfig:/usr/local/lib/pkgconfig:${PKG_CONFIG_PATH:-}"
 
     local work_dir
     work_dir=$(mktemp -d /tmp/zathura-build-XXXXXX)
@@ -256,7 +265,6 @@ step_build_zathura() {
 
     log_info "Cleaning up temporary build dependencies and headers..."
     sudo apt remove -y "${build_deps[@]}"
-    sudo apt autoremove -y
     sudo apt clean
 
     log_done "Girara, Zathura, and Poppler PDF plugin installed (build bloat removed)."
