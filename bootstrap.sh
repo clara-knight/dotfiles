@@ -213,12 +213,12 @@ step_build_zathura() {
     fi
 
     local runtime_deps=(
-        libgtk-3-0 libglib2.0-0 libjson-glib-1.0-0 libmagic1
+        libgtk-4-1 libglib2.0-0 libjson-glib-1.0-0 libmagic1
         libsqlite3-0 libxxhash0 libpoppler-glib8
     )
     local build_deps=(
         meson doxygen
-        libgtk-3-dev libglib2.0-dev libjson-glib-dev libmagic-dev
+        libgtk-4-dev libglib2.0-dev libjson-glib-dev libmagic-dev
         libsqlite3-dev libxxhash-dev libpoppler-glib-dev
     )
 
