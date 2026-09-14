@@ -1,68 +1,86 @@
 #!/bin/sh
-# dwm-xrdb-reload — regenerate ~/.Xresources from hellwal/colors.json,
+# dwm-xrdb-reload — regenerate hellwal/colors.json from ~/.Xresources,
 # merge into the X server, and refresh pywal terminal sequences.
 # Called from dwm's Mod+F5 (xrdb()) and safe to run manually.
-# Keeps st as-is, wal still drives terminal/nvim/dmenu; dwm reads dwm.* keys.
+#
+# Data flow:  .Xresources  →  colors.json + colors_tty.json  →  wal --theme
+#
+# colors_tty.json applies the TTY swap: color0 ← background, color8 ← original color0.
 
 set -u
 
 DOTFILES="${DOTFILES:-$HOME/dotfiles}"
-COLORS_JSON="$DOTFILES/hellwal/colors.json"
-# Allow override: first arg may point at an alternate colors.json
-if [ "${1:-}" != "" ] && [ -f "$1" ]; then
-    COLORS_JSON="$1"
-fi
-XRES="$HOME/.Xresources"
 PKG_XRES="$DOTFILES/dwm/.Xresources"
+XRES="$HOME/.Xresources"
+COLORS_JSON="$DOTFILES/hellwal/colors.json"
+COLORS_TTY_JSON="$DOTFILES/hellwal/colors_tty.json"
 
-# 1. Regenerate Xresources from colors.json (python3 stdlib only, no new deps)
-if [ -f "$COLORS_JSON" ] && command -v python3 >/dev/null 2>&1; then
-    GENERATED="$(python3 - "$COLORS_JSON" 2>/dev/null <<'PYEOF'
-import json, sys
-p = sys.argv[1]
-with open(p) as f:
-    data = json.load(f)
-sp = data.get("special", {})
-cl = data.get("colors", {})
-bg = sp.get("background", "#000000")
-fg = sp.get("foreground", "#ffffff")
-cur = sp.get("cursor", fg)
-print("! dwm/.Xresources — generated from hellwal/colors.json")
-print("! Do not hand-edit colors here; re-run dwm-xrdb-reload (or dwm-xrdb-generate)")
-print("! to regenerate from ~/dotfiles/hellwal/colors.json. Stowed to ~/.Xresources.")
-print("! Keeps st as-is, wal still drives terminal/nvim/dmenu; dwm reads dwm.* keys.")
-print("! (with *. fallbacks) via loadxrdb().")
-print("")
-print("*.background:\t%s" % bg)
-print("*.foreground:\t%s" % fg)
-print("*.cursor:\t%s" % cur)
-print("dwm.background:\t%s" % bg)
-print("dwm.foreground:\t%s" % fg)
-print("dwm.cursor:\t%s" % cur)
-print("")
-for i in range(16):
-    print("*.color%d:\t%s" % (i, cl.get("color%d" % i, "#000000")))
-print("")
-for i in range(16):
-    print("dwm.color%d:\t%s" % (i, cl.get("color%d" % i, "#000000")))
-PYEOF
-)"
-    if [ -n "$GENERATED" ]; then
-        # write to stow source first so repo stays in sync, then to $HOME
-        if [ -f "$PKG_XRES" ] || [ -d "$DOTFILES/dwm" ]; then
-            printf '%s\n' "$GENERATED" > "$PKG_XRES" 2>/dev/null || true
-        fi
-        printf '%s\n' "$GENERATED" > "$XRES" 2>/dev/null || true
-    fi
+# Prefer the stow source; fall back to $HOME copy
+SRC_XRES="$PKG_XRES"
+if [ ! -f "$SRC_XRES" ]; then
+    SRC_XRES="$XRES"
 fi
 
-# 2. Refresh wal cache from the same colors.json FIRST, so nothing stale
-# survives. (wal -R alone would restore the old cache; --theme re-ingests.)
+# 1. Parse .Xresources and write colors.json + colors_tty.json
+if [ -f "$SRC_XRES" ] && command -v python3 >/dev/null 2>&1; then
+    python3 - "$SRC_XRES" "$COLORS_JSON" "$COLORS_TTY_JSON" 2>/dev/null <<'PYEOF'
+import json, re, sys
+
+xres_path = sys.argv[1]
+colors_path = sys.argv[2]
+colors_tty_path = sys.argv[3]
+
+# Parse Xresources: we want *.colorN, *.background, *.foreground, *.cursor
+colors = {}
+special = {}
+with open(xres_path) as f:
+    for line in f:
+        line = line.strip()
+        if not line or line.startswith('!'):
+            continue
+        m = re.match(r'\*\.\s*(color\d+|background|foreground|cursor)\s*:\s*(#[0-9a-fA-F]{6})', line)
+        if m:
+            key, val = m.group(1), m.group(2)
+            if key in ('background', 'foreground', 'cursor'):
+                special[key] = val
+            else:
+                colors[key] = val
+
+bg = special.get('background', '#000000')
+fg = special.get('foreground', '#ffffff')
+cur = special.get('cursor', fg)
+
+# Build standard colors.json
+data = {
+    "special": {"background": bg, "foreground": fg, "cursor": cur},
+    "colors": {("color%d" % i): colors.get("color%d" % i, "#000000") for i in range(16)}
+}
+with open(colors_path, 'w') as f:
+    json.dump(data, f, indent=4)
+    f.write('\n')
+
+# Build colors_tty.json with TTY swap: color0 ← background, color8 ← original color0
+tty_colors = dict(data["colors"])
+orig_color0 = tty_colors.get("color0", "#000000")
+tty_colors["color0"] = bg
+tty_colors["color8"] = orig_color0
+
+tty_data = {
+    "special": {"background": bg, "foreground": fg, "cursor": cur},
+    "colors": tty_colors
+}
+with open(colors_tty_path, 'w') as f:
+    json.dump(tty_data, f, indent=4)
+    f.write('\n')
+PYEOF
+fi
+
+# 2. Refresh wal cache from the freshly generated colors.json
 if [ -f "$COLORS_JSON" ] && command -v wal >/dev/null 2>&1; then
     wal --theme "$COLORS_JSON" -q 2>/dev/null || wal -R 2>/dev/null || true
 fi
 
-# 3. Merge the fresh file LAST so no stale cache overwrites it.
+# 3. Merge .Xresources into the X server
 if [ -f "$XRES" ] && command -v xrdb >/dev/null 2>&1 && [ -n "${DISPLAY:-}" ]; then
     xrdb -merge "$XRES" 2>/dev/null || true
 fi

@@ -282,7 +282,7 @@ static Monitor *wintomon(Window w);
 static int xerror(Display *dpy, XErrorEvent *ee);
 static int xerrordummy(Display *dpy, XErrorEvent *ee);
 static int xerrorstart(Display *dpy, XErrorEvent *ee);
-static int drawstatusbar(Monitor *m, int bh, char* text);
+static int drawstatusbar(Monitor *m, int bh, char *text);
 static void xrdb(const Arg *arg);
 static void zoom(const Arg *arg);
 
@@ -723,126 +723,130 @@ Monitor *dirtomon(int dir) {
   return m;
 }
 
-int
-drawstatusbar(Monitor *m, int bh, char* stext) {
-	int ret, i, w, x, len;
-	short isCode = 0;
-	char *text;
-	char *p;
+int drawstatusbar(Monitor *m, int bh, char *stext) {
+  int ret, i, w, x, len;
+  short isCode = 0;
+  char *text;
+  char *p;
 
-	len = strlen(stext) + 1 ;
-	if (!(text = (char*) malloc(sizeof(char)*len)))
-		die("malloc");
-	p = text;
-	memcpy(text, stext, len);
+  len = strlen(stext) + 1;
+  if (!(text = (char *)malloc(sizeof(char) * len)))
+    die("malloc");
+  p = text;
+  memcpy(text, stext, len);
 
-	/* compute width of the status text */
-	w = 0;
-	i = -1;
-	while (text[++i]) {
-		if (text[i] == '^') {
-			if (!isCode) {
-				isCode = 1;
-				text[i] = '\0';
-				w += TEXTW(text) - lrpad;
-				text[i] = '^';
-				if (text[++i] == 'f')
-					w += atoi(text + ++i);
-			} else {
-				isCode = 0;
-				text = text + i + 1;
-				i = -1;
-			}
-		}
-	}
-	if (!isCode)
-		w += TEXTW(text) - lrpad;
-	else
-		isCode = 0;
-	text = p;
+  /* compute width of the status text */
+  w = 0;
+  i = -1;
+  while (text[++i]) {
+    if (text[i] == '^') {
+      if (!isCode) {
+        isCode = 1;
+        text[i] = '\0';
+        w += TEXTW(text) - lrpad;
+        text[i] = '^';
+        if (text[++i] == 'f')
+          w += atoi(text + ++i);
+      } else {
+        isCode = 0;
+        text = text + i + 1;
+        i = -1;
+      }
+    }
+  }
+  if (!isCode)
+    w += TEXTW(text) - lrpad;
+  else
+    isCode = 0;
+  text = p;
 
-	w += 2; /* 1px padding on both sides */
-	ret = x = m->ww - w;
+  w += 2; /* 1px padding on both sides */
+  ret = x = m->ww - w;
 
-	drw_setscheme(drw, scheme[LENGTH(colors)]);
-	drw->scheme[ColFg] = scheme[SchemeNorm][ColFg];
-	drw->scheme[ColBg] = scheme[SchemeNorm][ColBg];
-	drw_rect(drw, x, 0, w, bh, 1, 1);
-	x++;
+  drw_setscheme(drw, scheme[LENGTH(colors)]);
+  drw->scheme[ColFg] = scheme[SchemeNorm][ColFg];
+  drw->scheme[ColBg] = scheme[SchemeNorm][ColBg];
+  drw_rect(drw, x, 0, w, bh, 1, 1);
+  x++;
 
-	/* process status text */
-	i = -1;
-	while (text[++i]) {
-		if (text[i] == '^' && !isCode) {
-			isCode = 1;
+  /* process status text */
+  i = -1;
+  while (text[++i]) {
+    if (text[i] == '^' && !isCode) {
+      isCode = 1;
 
-			text[i] = '\0';
-			w = TEXTW(text) - lrpad;
-			drw_text(drw, x, 0, w, bh, 0, text, 0);
+      text[i] = '\0';
+      w = TEXTW(text) - lrpad;
+      drw_text(drw, x, 0, w, bh, 0, text, 0);
 
-			x += w;
+      x += w;
 
-			/* process code */
-			while (text[++i] != '^') {
-				if (text[i] == 'c') {
-					if (text[i+1] == '#') {
-						char buf[8];
-						memcpy(buf, (char*)text+i+1, 7);
-						buf[7] = '\0';
-						drw_clr_create(drw, &drw->scheme[ColFg], buf);
-						i += 7;
-					} else {
-						int idx = atoi(text + i + 1);
-						if (idx >= 0 && idx < 16)
-							drw_clr_create(drw, &drw->scheme[ColFg], xrdb_colors[idx]);
-						while (text[i+1] >= '0' && text[i+1] <= '9') i++;
-					}
-				} else if (text[i] == 'b') {
-					if (text[i+1] == '#') {
-						char buf[8];
-						memcpy(buf, (char*)text+i+1, 7);
-						buf[7] = '\0';
-						drw_clr_create(drw, &drw->scheme[ColBg], buf);
-						i += 7;
-					} else {
-						int idx = atoi(text + i + 1);
-						if (idx >= 0 && idx < 16)
-							drw_clr_create(drw, &drw->scheme[ColBg], xrdb_colors[idx]);
-						while (text[i+1] >= '0' && text[i+1] <= '9') i++;
-					}
-				} else if (text[i] == 'd') {
-					drw->scheme[ColFg] = scheme[SchemeNorm][ColFg];
-					drw->scheme[ColBg] = scheme[SchemeNorm][ColBg];
-				} else if (text[i] == 'r') {
-					int rx = atoi(text + ++i);
-					while (text[++i] != ',');
-					int ry = atoi(text + ++i);
-					while (text[++i] != ',');
-					int rw = atoi(text + ++i);
-					while (text[++i] != ',');
-					int rh = atoi(text + ++i);
+      /* process code */
+      while (text[++i] != '^') {
+        if (text[i] == 'c') {
+          if (text[i + 1] == '#') {
+            char buf[8];
+            memcpy(buf, (char *)text + i + 1, 7);
+            buf[7] = '\0';
+            drw_clr_create(drw, &drw->scheme[ColFg], buf);
+            i += 7;
+          } else {
+            int idx = atoi(text + i + 1);
+            if (idx >= 0 && idx < 24)
+              drw_clr_create(drw, &drw->scheme[ColFg], xrdb_colors[idx]);
+            while (text[i + 1] >= '0' && text[i + 1] <= '9')
+              i++;
+          }
+        } else if (text[i] == 'b') {
+          if (text[i + 1] == '#') {
+            char buf[8];
+            memcpy(buf, (char *)text + i + 1, 7);
+            buf[7] = '\0';
+            drw_clr_create(drw, &drw->scheme[ColBg], buf);
+            i += 7;
+          } else {
+            int idx = atoi(text + i + 1);
+            if (idx >= 0 && idx < 24)
+              drw_clr_create(drw, &drw->scheme[ColBg], xrdb_colors[idx]);
+            while (text[i + 1] >= '0' && text[i + 1] <= '9')
+              i++;
+          }
+        } else if (text[i] == 'd') {
+          drw->scheme[ColFg] = scheme[SchemeNorm][ColFg];
+          drw->scheme[ColBg] = scheme[SchemeNorm][ColBg];
+        } else if (text[i] == 'r') {
+          int rx = atoi(text + ++i);
+          while (text[++i] != ',')
+            ;
+          int ry = atoi(text + ++i);
+          while (text[++i] != ',')
+            ;
+          int rw = atoi(text + ++i);
+          while (text[++i] != ',')
+            ;
+          int rh = atoi(text + ++i);
 
-					drw_rect(drw, rx + x, ry, rw, rh, 1, 0);
-				} else if (text[i] == 'f') {
-					x += atoi(text + ++i);
-				}
-			}
+          drw_rect(drw, rx + x, ry, rw, rh, 1, 0);
+        } else if (text[i] == 'f') {
+          x += atoi(text + ++i);
+        }
+      }
 
-			text = text + i + 1;
-			i=-1;
-			isCode = 0;
-		}
-	}
+      text = text + i + 1;
+      i = -1;
+      isCode = 0;
+    }
+  }
 
-	if (!isCode) {
-		w = TEXTW(text) - lrpad;
-		drw_text(drw, x, 0, w, bh, 0, text, 0);
-	}
+  if (!isCode) {
+    w = TEXTW(text) - lrpad;
+    drw_text(drw, x, 0, w, bh, 0, text, 0);
+  }
 
-	drw_setscheme(drw, scheme[SchemeNorm]);
-	free(p);
+  drw_setscheme(drw, scheme[SchemeNorm]);
+  free(p);
 
-	return ret;
+  return ret;
 }
 
 void drawbar(Monitor *m) {
@@ -2173,7 +2177,7 @@ void zoom(const Arg *arg) {
   pop(c);
 }
 
-char xrdb_colors[16][8] = {
+char xrdb_colors[24][8] = {
     "#222222", /* 0: normbgcolor (default dark bg) */
     "#b30164", /* 1: red/accent 1 */
     "#ff9747", /* 2: green/accent 2 */
@@ -2189,8 +2193,21 @@ char xrdb_colors[16][8] = {
     "#ffc16b", /* 12: bright blue */
     "#c27aa4", /* 13: bright magenta */
     "#e86666", /* 14: bright cyan */
-    "#ffffff"  /* 15: selfgcolor (default active fg text) */
+    "#ffffff", /* 15: selfgcolor (default active fg text) */
+    "#000000", /* 16: dwm extra */
+    "#000000", /* 17: dwm extra */
+    "#000000", /* 18: dwm extra */
+    "#000000", /* 19: dwm extra */
+    "#000000", /* 20: dwm extra */
+    "#000000", /* 21: dwm extra */
+    "#000000", /* 22: dwm extra */
+    "#000000"  /* 23: dwm extra */
 };
+
+char xrdb_bg[8] = "#000000";
+char xrdb_fg[8] = "#808080";
+char xrdb_cursor[8] = "#ffffff";
+char xrdb_text[8] = "#ffffff";
 
 void loadxrdb() {
   Display *display;
@@ -2209,13 +2226,16 @@ void loadxrdb() {
 
       if (xrdb != NULL) {
         char key[32];
-        for (int i = 0; i < 16; i++) {
+        for (int i = 0; i < 24; i++) {
           /* Generic first so namespaced dwm.* always wins. */
           snprintf(key, sizeof(key), "color%d", i);
           XRDB_LOAD_COLOR(key, xrdb_colors[i]);
-          snprintf(key, sizeof(key), "dwm.color%d", i);
-          XRDB_LOAD_COLOR(key, xrdb_colors[i]);
         }
+        // background, foreground, cursor, and text colors.
+        XRDB_LOAD_COLOR("dwm.background", xrdb_bg);
+        XRDB_LOAD_COLOR("dwm.foreground", xrdb_fg);
+        XRDB_LOAD_COLOR("dwm.cursor", xrdb_cursor);
+        XRDB_LOAD_COLOR("dwm.text", xrdb_text);
       }
     }
     XCloseDisplay(display);
@@ -2223,7 +2243,7 @@ void loadxrdb() {
 }
 
 void xrdb(const Arg *arg) {
-  /* Mod+F5 refresh: regenerate ~/.Xresources from hellwal/colors.json,
+  /* Mod+F5 refresh: regenerate hellwal/colors.json from ~/.Xresources,
    * merge into the X server, and refresh wal sequences, then reload. */
   system("dwm-xrdb-reload >/dev/null 2>&1");
   loadxrdb();

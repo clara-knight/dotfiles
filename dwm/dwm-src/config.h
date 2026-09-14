@@ -9,19 +9,23 @@ static const int showbar = 1;           /* 0 means no bar */
 static const int topbar = 1;            /* 0 means bottom bar */
 static const char *fonts[] = {"Noto Mono:size=10", "monospace:size=10"};
 static const char dmenufont[] = "Noto Mono:size=10";
-extern char xrdb_colors[16][8];
+char xrdb_colors[24][8];
+char xrdb_bg[8];
+char xrdb_fg[8];
+char xrdb_cursor[8];
+char xrdb_text[8];
 
 static char *colors[][3] = {
     /*               fg              bg              border   */
     /* Inactive Top Bar */
     /* In the bars, fg controls the letter color */
-    [SchemeNorm] = {xrdb_colors[7], xrdb_colors[0], xrdb_colors[3]},
+    [SchemeNorm] = {xrdb_text, xrdb_bg, xrdb_colors[3]},
     /* Active Tag Highlight (color5) */
-    [SchemeSel] = {xrdb_colors[2], xrdb_colors[0], xrdb_colors[3]},
+    [SchemeSel] = {xrdb_colors[2], xrdb_bg, xrdb_colors[3]},
     /* Inactive Window Border */
     [SchemeWinNorm] = {xrdb_colors[2], xrdb_colors[0], xrdb_colors[8]},
     /* Active Window Border (color1) */
-    [SchemeWinSel] = {xrdb_colors[2], xrdb_colors[6], xrdb_colors[11]},
+    [SchemeWinSel] = {xrdb_colors[2], xrdb_colors[6], xrdb_colors[14]},
 };
 
 /* tagging */
