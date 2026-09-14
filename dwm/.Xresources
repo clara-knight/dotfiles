@@ -31,7 +31,7 @@ dwm.cursor:	#fcd4ef
 
 ! Extra dwm-only colors (color16–color23).
 ! These are NOT exported to Wal/colors.json — dwm reads them directly via xrdb.
-*.color16:	#000000
+*.color16:	#7c7d7d
 *.color17:	#000000
 *.color18:	#000000
 *.color19:	#000000

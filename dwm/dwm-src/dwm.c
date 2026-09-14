@@ -31,6 +31,7 @@
 #include <locale.h>
 #include <signal.h>
 #include <stdarg.h>
+#include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -318,6 +319,8 @@ static Display *dpy;
 static Drw *drw;
 static Monitor *mons, *selmon;
 static Window root, wmcheckwin;
+static XrmDatabase xrdb_db = NULL;
+static char *xrdb_str = NULL;
 
 /* configuration, allows nested code to access above variables */
 #include "config.h"
@@ -791,11 +794,32 @@ int drawstatusbar(Monitor *m, int bh, char *stext) {
             drw_clr_create(drw, &drw->scheme[ColFg], buf);
             i += 7;
           } else {
-            int idx = atoi(text + i + 1);
-            if (idx >= 0 && idx < 24)
-              drw_clr_create(drw, &drw->scheme[ColFg], xrdb_colors[idx]);
-            while (text[i + 1] >= '0' && text[i + 1] <= '9')
-              i++;
+            if (atoi(text + i + 1)) {
+              int idx = atoi(text + i + 1);
+              if (idx >= 0 && idx < 24)
+                drw_clr_create(drw, &drw->scheme[ColFg], xrdb_colors[idx]);
+              while (text[i + 1] >= '0' && text[i + 1] <= '9')
+                i++;
+            } else {
+              int offset = 0;
+
+              while (text[i + 1 + offset] != '^') {
+                offset++;
+              }
+              char buf[32];
+              int preffix_length = 4;
+              memcpy(buf, "dwm.", preffix_length);
+              memcpy((char *)buf + preffix_length, (char *)text + i + 1,
+                     offset);
+              buf[5 + i + 1 + offset] = '\0';
+
+              char *type;
+              XrmValue value;
+              if (XrmGetResource(xrdb_db, buf, NULL, &type, &value) == True) {
+                drw_clr_create(drw, &drw->scheme[ColFg], value.addr);
+              }
+              i += offset;
+            }
           }
         } else if (text[i] == 'b') {
           if (text[i + 1] == '#') {
@@ -1412,7 +1436,8 @@ void resizemouse(const Arg *arg) {
 
   if (!(c = selmon->sel))
     return;
-  if (c->isfullscreen) /* no support resizing fullscreen windows by mouse */
+  if (c->isfullscreen) /* no support resizing fullscreen windows by mouse
+                        */
     return;
   restack(selmon);
   ocx = c->x;
@@ -2138,9 +2163,9 @@ Monitor *wintomon(Window w) {
   return selmon;
 }
 
-/* There's no way to check accesses to destroyed windows, thus those cases are
- * ignored (especially on UnmapNotify's). Other types of errors call Xlibs
- * default error handler, which may call exit. */
+/* There's no way to check accesses to destroyed windows, thus those cases
+ * are ignored (especially on UnmapNotify's). Other types of errors call
+ * Xlibs default error handler, which may call exit. */
 int xerror(Display *dpy, XErrorEvent *ee) {
   if (ee->error_code == BadWindow ||
       (ee->request_code == X_SetInputFocus && ee->error_code == BadMatch) ||
@@ -2222,6 +2247,14 @@ void loadxrdb() {
     resm = XResourceManagerString(display);
 
     if (resm != NULL) {
+      free(xrdb_str);
+      xrdb_str = malloc(strlen(resm) + 1);
+      if (xrdb_str != NULL) {
+        strcpy(xrdb_str, resm);
+        if (xrdb_db != NULL)
+          XrmDestroyDatabase(xrdb_db);
+        xrdb_db = XrmGetStringDatabase(xrdb_str);
+      }
       xrdb = XrmGetStringDatabase(resm);
 
       if (xrdb != NULL) {

@@ -77,10 +77,10 @@ static const char *colored_battery(const char *unused) {
 
 static const struct arg args[] = {
     /* function        format 	  argument */
-    {colored_battery, "%s", "BAT0"},
-    {ram_perc, " ^c2^|^d^ " WHITE "  %s%%", NULL},
-    {datetime, " ^c3^|^d^ " WHITE "%s^d^", "%a %m/%d/%Y"},
+    {colored_battery, "^ctext^%s", "BAT0"},
+    {ram_perc, " ^c2^|^d^ ^ctext^   %s%%", NULL},
+    {datetime, " ^c3^|^d^ ^ctext^ %s^d^", "%a %m/%d/%Y"},
     //{run_command, " ^c7^(%s)^d^",
     // "sh -c 'echo Winter 2026: $(($(date +%W) - 0))/10'"},
-    {datetime, " ^c1^|^d^ " WHITE "%s ", "%H:%M:%S"},
+    {datetime, " ^c1^|^d^ ^ctext^ %s ", "%H:%M:%S"},
 };

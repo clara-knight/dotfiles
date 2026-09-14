@@ -3,7 +3,7 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static const unsigned int borderpx = 1; /* border pixel of windows */
+static const unsigned int borderpx = 2; /* border pixel of windows */
 static const unsigned int snap = 32;    /* snap pixel */
 static const int showbar = 1;           /* 0 means no bar */
 static const int topbar = 1;            /* 0 means bottom bar */
@@ -19,9 +19,9 @@ static char *colors[][3] = {
     /*               fg              bg              border   */
     /* Inactive Top Bar */
     /* In the bars, fg controls the letter color */
-    [SchemeNorm] = {xrdb_text, xrdb_bg, xrdb_colors[3]},
+    [SchemeNorm] = {xrdb_colors[16], xrdb_bg, xrdb_colors[4]},
     /* Active Tag Highlight (color5) */
-    [SchemeSel] = {xrdb_colors[2], xrdb_bg, xrdb_colors[3]},
+    [SchemeSel] = {xrdb_text, xrdb_bg, xrdb_colors[3]},
     /* Inactive Window Border */
     [SchemeWinNorm] = {xrdb_colors[2], xrdb_colors[0], xrdb_colors[8]},
     /* Active Window Border (color1) */
