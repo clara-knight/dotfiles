@@ -125,6 +125,13 @@ static const Key keys[] = {
     {MODKEY, XK_F5, xrdb, {.v = NULL}},
     {MODKEY | ShiftMask, XK_r, restart, {0}},
     {MODKEY | ShiftMask, XK_q, quit, {0}},
+    /* Copy what is highlighted directly to the system clipboard */
+    {MODKEY | ShiftMask, XK_c, spawn,
+     SHCMD("xclip -o -sel primary | xclip -sel clipboard")},
+    /* Paste from system clipboard into the terminal */
+    {MODKEY | ShiftMask, XK_v, spawn,
+     SHCMD("xclip -o -sel clipboard | xdotool type --delay 1 --clearmodifiers "
+           "-")},
 };
 
 /* button definitions */

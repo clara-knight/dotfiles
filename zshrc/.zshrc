@@ -120,3 +120,16 @@ alias startxmonad="WM=xmonad startx"
 
 # Aliases
 alias explore="$HOME/dicts/repl"
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/home/clara/google-cloud-sdk/path.zsh.inc' ]; then . '/home/clara/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/home/clara/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/clara/google-cloud-sdk/completion.zsh.inc'; fi
+
+
+# Added by Antigravity CLI installer
+export PATH="/home/clara/.local/bin:$PATH"
+
+# Pi
+export PATH="/home/clara/.local/share/pi-node/node-v22.23.2-linux-x64/bin:$PATH"
