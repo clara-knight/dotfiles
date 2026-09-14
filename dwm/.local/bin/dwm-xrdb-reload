@@ -1,0 +1,68 @@
+#!/bin/sh
+# dwm-xrdb-reload — regenerate ~/.Xresources from hellwal/colors.json,
+# merge into the X server, and refresh pywal terminal sequences.
+# Called from dwm's Mod+F5 (xrdb()) and safe to run manually.
+# Keeps st as-is, wal still drives terminal/nvim/dmenu; dwm reads dwm.* keys.
+
+set -u
+
+DOTFILES="${DOTFILES:-$HOME/dotfiles}"
+COLORS_JSON="$DOTFILES/hellwal/colors.json"
+# Allow override: first arg may point at an alternate colors.json
+if [ "${1:-}" != "" ] && [ -f "$1" ]; then
+    COLORS_JSON="$1"
+fi
+XRES="$HOME/.Xresources"
+PKG_XRES="$DOTFILES/dwm/.Xresources"
+
+# 1. Regenerate Xresources from colors.json (python3 stdlib only, no new deps)
+if [ -f "$COLORS_JSON" ] && command -v python3 >/dev/null 2>&1; then
+    GENERATED="$(python3 - "$COLORS_JSON" 2>/dev/null <<'PYEOF'
+import json, sys
+p = sys.argv[1]
+with open(p) as f:
+    data = json.load(f)
+sp = data.get("special", {})
+cl = data.get("colors", {})
+bg = sp.get("background", "#000000")
+fg = sp.get("foreground", "#ffffff")
+cur = sp.get("cursor", fg)
+print("! dwm/.Xresources — generated from hellwal/colors.json")
+print("! Do not hand-edit colors here; re-run dwm-xrdb-reload (or dwm-xrdb-generate)")
+print("! to regenerate from ~/dotfiles/hellwal/colors.json. Stowed to ~/.Xresources.")
+print("! Keeps st as-is, wal still drives terminal/nvim/dmenu; dwm reads dwm.* keys.")
+print("! (with *. fallbacks) via loadxrdb().")
+print("")
+print("*.background:\t%s" % bg)
+print("*.foreground:\t%s" % fg)
+print("*.cursor:\t%s" % cur)
+print("dwm.background:\t%s" % bg)
+print("dwm.foreground:\t%s" % fg)
+print("dwm.cursor:\t%s" % cur)
+print("")
+for i in range(16):
+    print("*.color%d:\t%s" % (i, cl.get("color%d" % i, "#000000")))
+print("")
+for i in range(16):
+    print("dwm.color%d:\t%s" % (i, cl.get("color%d" % i, "#000000")))
+PYEOF
+)"
+    if [ -n "$GENERATED" ]; then
+        # write to stow source first so repo stays in sync, then to $HOME
+        if [ -f "$PKG_XRES" ] || [ -d "$DOTFILES/dwm" ]; then
+            printf '%s\n' "$GENERATED" > "$PKG_XRES" 2>/dev/null || true
+        fi
+        printf '%s\n' "$GENERATED" > "$XRES" 2>/dev/null || true
+    fi
+fi
+
+# 2. Refresh wal cache from the same colors.json FIRST, so nothing stale
+# survives. (wal -R alone would restore the old cache; --theme re-ingests.)
+if [ -f "$COLORS_JSON" ] && command -v wal >/dev/null 2>&1; then
+    wal --theme "$COLORS_JSON" -q 2>/dev/null || wal -R 2>/dev/null || true
+fi
+
+# 3. Merge the fresh file LAST so no stale cache overwrites it.
+if [ -f "$XRES" ] && command -v xrdb >/dev/null 2>&1 && [ -n "${DISPLAY:-}" ]; then
+    xrdb -merge "$XRES" 2>/dev/null || true
+fi

@@ -1,7 +1,4 @@
 {
-    "wallpaper": "lesbian_flags/les-flag_vector_800.jpg",
-    "alpha": "100",
-
     "special": {
         "background": "#0d0c0b",
         "foreground": "#ffffff",
@@ -16,7 +13,7 @@
         "color5": "#c34f92",
         "color6": "#e82a2a",
         "color7": "#fff0ed",
-        "color8": "#7c8a91",
+        "color8": "#7c8a92",
         "color9": "#b35287",
         "color10": "#ffb882",
         "color11": "#e38fbc",

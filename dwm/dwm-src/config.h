@@ -15,17 +15,17 @@ static char *colors[][3] = {
     /*               fg              bg              border   */
     /* Inactive Top Bar */
     /* In the bars, fg controls the letter color */
-    [SchemeNorm] = {xrdb_colors[8], xrdb_colors[0], xrdb_colors[3]},
+    [SchemeNorm] = {xrdb_colors[7], xrdb_colors[0], xrdb_colors[3]},
     /* Active Tag Highlight (color5) */
-    [SchemeSel] = {xrdb_colors[7], xrdb_colors[0], xrdb_colors[2]},
+    [SchemeSel] = {xrdb_colors[2], xrdb_colors[0], xrdb_colors[3]},
     /* Inactive Window Border */
-    [SchemeWinNorm] = {xrdb_colors[7], xrdb_colors[0], xrdb_colors[8]},
+    [SchemeWinNorm] = {xrdb_colors[2], xrdb_colors[0], xrdb_colors[8]},
     /* Active Window Border (color1) */
-    [SchemeWinSel] = {xrdb_colors[2], xrdb_colors[13], xrdb_colors[1]},
+    [SchemeWinSel] = {xrdb_colors[2], xrdb_colors[6], xrdb_colors[11]},
 };
 
 /* tagging */
-static const char *tags[] = {"1", "2", "3", "4", "5"};
+static const char *tags[] = {"1", "2", "3", "4", "5", "6"};
 
 static const Rule rules[] = {
     /* xprop(1):

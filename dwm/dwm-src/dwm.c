@@ -65,18 +65,18 @@
       XrmGetResource(xrdb, R, NULL, &type, &value) == True) {                  \
     if (value.addr != NULL && strnlen(value.addr, 8) == 7 &&                   \
         value.addr[0] == '#') {                                                \
-      int i = 1;                                                               \
-      for (; i <= 6; i++) {                                                    \
-        if (value.addr[i] < 48)                                                \
+      int _ci = 1;                                                             \
+      for (; _ci <= 6; _ci++) {                                                \
+        if (value.addr[_ci] < 48)                                              \
           break;                                                               \
-        if (value.addr[i] > 57 && value.addr[i] < 65)                          \
+        if (value.addr[_ci] > 57 && value.addr[_ci] < 65)                      \
           break;                                                               \
-        if (value.addr[i] > 70 && value.addr[i] < 97)                          \
+        if (value.addr[_ci] > 70 && value.addr[_ci] < 97)                      \
           break;                                                               \
-        if (value.addr[i] > 102)                                               \
+        if (value.addr[_ci] > 102)                                             \
           break;                                                               \
       }                                                                        \
-      if (i == 7) {                                                            \
+      if (_ci == 7) {                                                          \
         strncpy(V, value.addr, 7);                                             \
         V[7] = '\0';                                                           \
       }                                                                        \
@@ -2210,8 +2210,10 @@ void loadxrdb() {
       if (xrdb != NULL) {
         char key[32];
         for (int i = 0; i < 16; i++) {
+          /* Generic first so namespaced dwm.* always wins. */
+          snprintf(key, sizeof(key), "color%d", i);
           XRDB_LOAD_COLOR(key, xrdb_colors[i]);
-          XRDB_LOAD_COLOR(key, xrdb_colors[i]);
+          snprintf(key, sizeof(key), "dwm.color%d", i);
           XRDB_LOAD_COLOR(key, xrdb_colors[i]);
         }
       }
@@ -2221,6 +2223,9 @@ void loadxrdb() {
 }
 
 void xrdb(const Arg *arg) {
+  /* Mod+F5 refresh: regenerate ~/.Xresources from hellwal/colors.json,
+   * merge into the X server, and refresh wal sequences, then reload. */
+  system("dwm-xrdb-reload >/dev/null 2>&1");
   loadxrdb();
   int i;
   for (i = 0; i < LENGTH(colors); i++)

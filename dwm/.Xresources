@@ -1,0 +1,46 @@
+! dwm/.Xresources — generated from hellwal/colors.json
+! Do not hand-edit colors here; re-run dwm-xrdb-reload (or dwm-xrdb-generate)
+! to regenerate from ~/dotfiles/hellwal/colors.json. Stowed to ~/.Xresources.
+! Keeps st as-is, wal still drives terminal/nvim/dmenu; dwm reads dwm.* keys.
+! (with *. fallbacks) via loadxrdb().
+
+*.background:	#0d0c0b
+*.foreground:	#ffffff
+*.cursor:	#fcd4ef
+dwm.background:	#0d0c0b
+dwm.foreground:	#ffffff
+dwm.cursor:	#fcd4ef
+
+*.color0:	#7c8a91
+*.color1:	#b30164
+*.color2:	#ff9747
+*.color3:	#e359a2
+*.color4:	#ffa82e
+*.color5:	#c34f92
+*.color6:	#e82a2a
+*.color7:	#fff0ed
+*.color8:	#7c8a92
+*.color9:	#b35287
+*.color10:	#ffb882
+*.color11:	#e38fbc
+*.color12:	#ffc16b
+*.color13:	#c27aa4
+*.color14:	#e86666
+*.color15:	#fff0ed
+
+dwm.color0:	#7c8a91
+dwm.color1:	#b30164
+dwm.color2:	#ff9747
+dwm.color3:	#e359a2
+dwm.color4:	#ffa82e
+dwm.color5:	#c34f92
+dwm.color6:	#e82a2a
+dwm.color7:	#fff0ed
+dwm.color8:	#7c8a92
+dwm.color9:	#b35287
+dwm.color10:	#ffb882
+dwm.color11:	#e38fbc
+dwm.color12:	#ffc16b
+dwm.color13:	#c27aa4
+dwm.color14:	#e86666
+dwm.color15:	#fff0ed
