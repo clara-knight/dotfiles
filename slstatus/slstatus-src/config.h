@@ -79,6 +79,7 @@ static const struct arg args[] = {
     /* function        format 	  argument */
     {colored_battery, "^ctext^%s", "BAT0"},
     {ram_perc, " ^c2^|^d^ ^ctext^   %s%%", NULL},
+    {swap_perc, " (%s%%)", NULL},
     {datetime, " ^c3^|^d^ ^ctext^ %s^d^", "%a %m/%d/%Y"},
     //{run_command, " ^c7^(%s)^d^",
     // "sh -c 'echo Winter 2026: $(($(date +%W) - 0))/10'"},
