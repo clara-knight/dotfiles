@@ -1,0 +1,108 @@
+{
+    "Name": "Browser",
+    "Options": {
+        "ApplyWindowSize": true
+    },
+    "Version": 1,
+    "Widgets": [
+        {
+            "SplitterVertical": {
+                "Locked": [
+                    true,
+                    false,
+                    true
+                ],
+                "State": "AAAA/wAAAAEAAAADAAAAFwAAA6YAAAAWAP////8BAAAAAgA=",
+                "Widgets": [
+                    {
+                        "SplitterHorizontal": {
+                            "Locked": [
+                                true,
+                                false,
+                                false,
+                                false
+                            ],
+                            "State": "AAAA/wAAAAEAAAAEAAAAcgAABRoAAAA2AAAAYwD/////AQAAAAEA",
+                            "Widgets": [
+                                {
+                                    "PlayerControls": {
+                                        "ShowNext": true,
+                                        "ShowPlayPause": true,
+                                        "ShowPrevious": true,
+                                        "ShowRandomTrack": false,
+                                        "ShowStop": true
+                                    }
+                                },
+                                {
+                                    "SeekBar": {
+                                        "ShowLabels": true,
+                                        "ShowRemainingTime": false
+                                    }
+                                },
+                                {
+                                    "PlaylistControls": {
+                                    }
+                                },
+                                {
+                                    "VolumeControls": {
+                                        "Mode": 3
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "SplitterHorizontal": {
+                            "State": "AAAA/wAAAAEAAAACAAACeAAAAnoA/////wEAAAABAA==",
+                            "Widgets": [
+                                {
+                                    "DirectoryBrowser": {
+                                        "ColumnAlignments": [
+                                            1,
+                                            2,
+                                            1,
+                                            1
+                                        ],
+                                        "ControlsPosition": 0,
+                                        "DoubleClickAction": 5,
+                                        "HeaderState": "AAAABAAAAMwAAAA2AAAAAAAAAHEAAAAEAAAAAAAAAAEAAAACAAAAAwAAAAQ/4Y+cGPnBkD/Cu1ErtRK7AAAAAAAAAAA/04MfODHzgwEAAAAAAAAAAA==",
+                                        "ID": "4541f54e736e4edf8ada1141c528183c",
+                                        "IndentList": true,
+                                        "MiddleClickAction": 0,
+                                        "Mode": 1,
+                                        "RestoreSort": false,
+                                        "RootPath": "/home/clara",
+                                        "SendPlayback": true,
+                                        "ShowControls": true,
+                                        "ShowHeader": true,
+                                        "ShowHidden": false,
+                                        "ShowIcons": true,
+                                        "ShowLocation": true,
+                                        "ShowSymLinks": false
+                                    }
+                                },
+                                {
+                                    "ArtworkPanel": {
+                                        "CoverAlignment": 132,
+                                        "CoverType": 0,
+                                        "FadeCoverChanges": false,
+                                        "FadeDurationMs": 1000,
+                                        "KeepAspectRatio": true
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "StatusBar": {
+                        }
+                    }
+                ]
+            }
+        }
+    ],
+    "WindowSize": {
+        "Height": 747,
+        "Width": 772
+    }
+}

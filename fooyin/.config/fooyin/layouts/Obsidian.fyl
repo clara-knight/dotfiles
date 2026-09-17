@@ -1,0 +1,182 @@
+{
+    "Name": "Obsidian",
+    "Options": {
+        "ApplyWindowSize": true
+    },
+    "Version": 1,
+    "Widgets": [
+        {
+            "SplitterVertical": {
+                "Locked": [
+                    true,
+                    false,
+                    false
+                ],
+                "State": "AAAA/wAAAAEAAAADAAAAGAAAAtwAAAAcAP////8BAAAAAgA=",
+                "Widgets": [
+                    {
+                        "StatusBar": {
+                        }
+                    },
+                    {
+                        "SplitterHorizontal": {
+                            "Locked": [
+                                true,
+                                false,
+                                true
+                            ],
+                            "State": "AAAA/wAAAAEAAAADAAAA7QAAA20AAADaAP////8BAAAAAQA=",
+                            "Widgets": [
+                                {
+                                    "SplitterVertical": {
+                                        "Locked": [
+                                            true,
+                                            false
+                                        ],
+                                        "State": "AAAA/wAAAAEAAAACAAAAIAAAArsA/////wEAAAACAA==",
+                                        "Widgets": [
+                                            {
+                                                "SearchBar": {
+                                                    "AutoSearch": true,
+                                                    "SearchMode": 0,
+                                                    "ShowAll": false
+                                                }
+                                            },
+                                            {
+                                                "LibraryTree": {
+                                                    "AlternatingRows": false,
+                                                    "Animated": true,
+                                                    "ArtworkCornerRadius": 0,
+                                                    "AutoExpandSearchResultLimit": 10,
+                                                    "AutoSwitch": true,
+                                                    "DoubleClickAction": 0,
+                                                    "ExpandOnSingleClick": false,
+                                                    "Grouping": 2,
+                                                    "ID": "96fe47b7e1254e84a067a58e60f7b58e",
+                                                    "IconHeight": 36,
+                                                    "IconWidth": 36,
+                                                    "KeepAlive": true,
+                                                    "MiddleClickAction": 0,
+                                                    "PlaylistEnabled": false,
+                                                    "PlaylistName": "Library Selection",
+                                                    "RestoreState": true,
+                                                    "RowHeight": 0,
+                                                    "SendPlayback": true,
+                                                    "ShowHeader": true,
+                                                    "ShowScrollbar": true,
+                                                    "ShowSummaryNode": true,
+                                                    "State": "AAAAzHjaY2BgEHhtNuPvlVijF8wiJ/7+n+y4mYGBgROIBYJTcjMDSstWpfBdrD7VaXgPJLaGu8LEdf7XvZLZcclXBBwmgcRUJmme6ljl1SFqGL2h9bxvIkhsq/IG/3KtKFGNZRKLzv7sSACJmW63+HnNgD/M+v+JgFVKjy1AYhnfcyNSg5UfSYdeEvWPn8QFEuNakPba8J+A67qdvzkbfqdOBokJ3Sh64uo+pyl7+8Jfyme2e4DEpLoWfJ65pcBiCpv582ub3zUDABWGTsM=",
+                                                    "SummaryNodeTitle": "All Music (%trackcount%)"
+                                                }
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "PlaylistTabs": {
+                                        "CloseOnMiddleClick": false,
+                                        "ExpandTabs": false,
+                                        "ShowAddButton": false,
+                                        "ShowClearButton": false,
+                                        "ShowCloseButton": false,
+                                        "TabPosition": 0,
+                                        "Widgets": [
+                                            {
+                                                "SplitterVertical": {
+                                                    "Locked": [
+                                                        false,
+                                                        true
+                                                    ],
+                                                    "State": "AAAA/wAAAAEAAAACAAAB7gAAAIEA/////wEAAAACAA==",
+                                                    "Widgets": [
+                                                        {
+                                                            "Playlist": {
+                                                                "Columns": "8:132|3|0:2|1|7:2",
+                                                                "HeaderState": "AAAAZXjaY2BgYGVgYDBhYGAsAdKWQDoCSOszQMRBgBGImYCYGYhZQOL263YEvm6V22F/27W+P1Vb2n7Dtt8zP68XtL/p9ORDb+Ba+9XTJj34P+cJSCPDfyAAAP7kG+s=",
+                                                                "ID": "a1f7173e8ac743abb0877c444217d195",
+                                                                "Preset": 0,
+                                                                "SingleMode": false
+                                                            }
+                                                        },
+                                                        {
+                                                            "Oscilloscope": {
+                                                                "CurveDurationMs": 200,
+                                                                "DownmixMode": 0,
+                                                                "ShowZeroLine": false,
+                                                                "UpdateFps": 30,
+                                                                "UseCustomColours": false,
+                                                                "ZoomPercent": 100
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "SplitterVertical": {
+                                        "State": "AAAA/wAAAAEAAAABAAABLwD/////AQAAAAIA",
+                                        "Widgets": [
+                                            {
+                                                "SelectionInfo": {
+                                                    "AlternatingRows": true,
+                                                    "Options": 87,
+                                                    "ShowHeader": true,
+                                                    "ShowHorizontalScrollbar": false,
+                                                    "ShowVerticalScrollbar": true,
+                                                    "State": "AAAA/wAAAAAAAAABAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANgAAAACAAAAAAAAAAAAAAAAAAAAAGT/////AAAAhAAAAAAAAAACAAAAZAAAAAEAAAAAAAAAdAAAAAEAAAACAAAD6AAAAAAAAAAAAA=="
+                                                }
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "SplitterHorizontal": {
+                            "Locked": [
+                                true,
+                                false,
+                                false,
+                                false
+                            ],
+                            "State": "AAAA/wAAAAEAAAAEAAAAggAABoIAAAA+AAAAZwD/////AQAAAAEA",
+                            "Widgets": [
+                                {
+                                    "PlayerControls": {
+                                        "ShowNext": true,
+                                        "ShowPlayPause": true,
+                                        "ShowPrevious": true,
+                                        "ShowRandomTrack": false,
+                                        "ShowStop": true
+                                    }
+                                },
+                                {
+                                    "SeekBar": {
+                                        "ShowLabels": true,
+                                        "ShowRemainingTime": false
+                                    }
+                                },
+                                {
+                                    "PlaylistControls": {
+                                    }
+                                },
+                                {
+                                    "VolumeControls": {
+                                        "Mode": 3
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        }
+    ],
+    "WindowSize": {
+        "Height": 745,
+        "Width": 1356
+    }
+}

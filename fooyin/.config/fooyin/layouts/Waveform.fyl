@@ -1,0 +1,115 @@
+{
+    "Name": "Waveform",
+    "Options": {
+        "ApplyWindowSize": true
+    },
+    "Version": 1,
+    "Widgets": [
+        {
+            "SplitterVertical": {
+                "Locked": [
+                    true,
+                    true,
+                    false,
+                    false
+                ],
+                "State": "AAAA/wAAAAEAAAAEAAABFQAAACAAAAHpAAAAFgD/////AQAAAAIA",
+                "Widgets": [
+                    {
+                        "SplitterHorizontal": {
+                            "Locked": [
+                                true,
+                                false
+                            ],
+                            "State": "AAAA/wAAAAEAAAACAAABFQAAAo4A/////wEAAAABAA==",
+                            "Widgets": [
+                                {
+                                    "ArtworkPanel": {
+                                        "CoverAlignment": 132,
+                                        "CoverType": 0,
+                                        "FadeCoverChanges": false,
+                                        "FadeDurationMs": 1000,
+                                        "KeepAspectRatio": true
+                                    }
+                                },
+                                {
+                                    "WaveBar": {
+                                        "BarGap": 0,
+                                        "BarWidth": 1,
+                                        "CentreGap": 0,
+                                        "ChannelScale": 0.9,
+                                        "CursorWidth": 3,
+                                        "DecibelScale": false,
+                                        "Downmix": 0,
+                                        "MaxScale": 1,
+                                        "Mode": 3,
+                                        "NormaliseToPeak": true,
+                                        "PeakDisplayMode": 2,
+                                        "ShowCursor": false,
+                                        "ShowLabels": false,
+                                        "ShowRemainingTime": false,
+                                        "SupersampleFactor": 2,
+                                        "UseCustomColours": false
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "SplitterHorizontal": {
+                            "Locked": [
+                                true,
+                                false,
+                                true,
+                                true
+                            ],
+                            "State": "AAAA/wAAAAEAAAAEAAABFQAAAhkAAABGAAAAcQD/////AQAAAAEA",
+                            "Widgets": [
+                                {
+                                    "PlayerControls": {
+                                        "ShowNext": true,
+                                        "ShowPlayPause": true,
+                                        "ShowPrevious": true,
+                                        "ShowRandomTrack": false,
+                                        "ShowStop": true
+                                    }
+                                },
+                                {
+                                    "OutputSelector": {
+                                        "ShowLabel": false
+                                    }
+                                },
+                                {
+                                    "PlaylistControls": {
+                                    }
+                                },
+                                {
+                                    "VolumeControls": {
+                                        "Mode": 3
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "Playlist": {
+                            "Columns": "8:132|0:2|1|7:2|9:4|12:4|11:4|16:4",
+                            "HeaderState": "AAAAlXjaY2Bg4GBgYNADYhUGBsYyIG0GxP5AHAbEfkBswQBRAwKMQMwExCxAzAbErEDMDsTMIDX2a/Wl5u8rO2m/nMu2YPF1Lvu7pX4v795Ns98o9nP1nyN89juFT63pPhZjv1vpwtMEx077HVf+ft7mush+4+tWuR2Bb0CGM/wHAgCHHSii",
+                            "ID": "926a291007c043c8b9d725ddadd3a41e",
+                            "Preset": 1,
+                            "SingleMode": false
+                        }
+                    },
+                    {
+                        "StatusBar": {
+                        }
+                    }
+                ]
+            }
+        }
+    ],
+    "WindowSize": {
+        "Height": 747,
+        "Width": 833
+    }
+}
