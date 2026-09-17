@@ -1,0 +1,179 @@
+{
+    "Name": "mylayout",
+    "Options": {
+        "ApplyTheme": false,
+        "ApplyWindowSize": false
+    },
+    "Version": 1,
+    "Widgets": [
+        {
+            "SplitterVertical": {
+                "Locked": [
+                    true,
+                    false,
+                    false
+                ],
+                "State": "AAAA/wAAAAEAAAADAAAAGAAAAtwAAAAcAP////8BAAAAAgA=",
+                "Widgets": [
+                    {
+                        "StatusBar": {
+                        }
+                    },
+                    {
+                        "SplitterHorizontal": {
+                            "Locked": [
+                                true,
+                                false,
+                                true
+                            ],
+                            "State": "AAAA/wAAAAEAAAADAAAA7QAAA20AAADaAP////8BAAAAAQA=",
+                            "Widgets": [
+                                {
+                                    "SplitterVertical": {
+                                        "Locked": [
+                                            true,
+                                            false
+                                        ],
+                                        "State": "AAAA/wAAAAEAAAACAAAAIAAAArsA/////wEAAAACAA==",
+                                        "Widgets": [
+                                            {
+                                                "SearchBar": {
+                                                    "AutoSearch": true,
+                                                    "SearchMode": 0,
+                                                    "ShowAll": false
+                                                }
+                                            },
+                                            {
+                                                "LibraryTree": {
+                                                    "AlternatingRows": false,
+                                                    "Animated": true,
+                                                    "ArtworkCornerRadius": 0,
+                                                    "AutoExpandSearchResultLimit": 10,
+                                                    "AutoSwitch": true,
+                                                    "DoubleClickAction": 0,
+                                                    "ExpandOnSingleClick": false,
+                                                    "Grouping": 0,
+                                                    "ID": "96fe47b7e1254e84a067a58e60f7b58e",
+                                                    "IconHeight": 36,
+                                                    "IconWidth": 36,
+                                                    "KeepAlive": true,
+                                                    "MiddleClickAction": 0,
+                                                    "PlaylistEnabled": false,
+                                                    "PlaylistName": "Library Selection",
+                                                    "RestoreState": true,
+                                                    "RowHeight": 0,
+                                                    "SendPlayback": true,
+                                                    "ShowHeader": true,
+                                                    "ShowScrollbar": true,
+                                                    "ShowSummaryNode": true,
+                                                    "State": "AAAABHja+////38ACfoD/Q==",
+                                                    "SummaryNodeTitle": "All Music (%trackcount%)"
+                                                }
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "PlaylistTabs": {
+                                        "CloseOnMiddleClick": false,
+                                        "ExpandTabs": false,
+                                        "ShowAddButton": false,
+                                        "ShowClearButton": false,
+                                        "ShowCloseButton": false,
+                                        "TabPosition": 0,
+                                        "Widgets": [
+                                            {
+                                                "SplitterVertical": {
+                                                    "Locked": [
+                                                        false,
+                                                        true
+                                                    ],
+                                                    "State": "AAAA/wAAAAEAAAACAAAB7gAAAIEA/////wEAAAACAA==",
+                                                    "Widgets": [
+                                                        {
+                                                            "Playlist": {
+                                                                "Columns": "8:132|3|0:2|1|7:2",
+                                                                "HeaderState": "AAAAZXjaY2BgYGVgYDBhYGD0AdJuUDqcASIOAoxAzATEzEDMAhK3X7cj8HWr3A77G2AqyH5L1UP3dSLVcP7OmSAwC6SR4T8QAADliBof",
+                                                                "ID": "a1f7173e8ac743abb0877c444217d195",
+                                                                "Preset": 0,
+                                                                "SingleMode": false
+                                                            }
+                                                        },
+                                                        {
+                                                            "Oscilloscope": {
+                                                                "CurveDurationMs": 150,
+                                                                "DownmixMode": 0,
+                                                                "ShowZeroLine": false,
+                                                                "UpdateFps": 30,
+                                                                "UseCustomColours": false,
+                                                                "ZoomPercent": 100
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "SplitterVertical": {
+                                        "State": "AAAA/wAAAAEAAAABAAABLwD/////AQAAAAIA",
+                                        "Widgets": [
+                                            {
+                                                "SelectionInfo": {
+                                                    "AlternatingRows": true,
+                                                    "Options": 87,
+                                                    "ShowHeader": true,
+                                                    "ShowHorizontalScrollbar": false,
+                                                    "ShowVerticalScrollbar": true,
+                                                    "State": "AAAA/wAAAAAAAAABAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANgAAAACAAAAAAAAAAAAAAAAAAAAAGT/////AAAAhAAAAAAAAAACAAAAZAAAAAEAAAAAAAAAdAAAAAEAAAACAAAD6AAAAAAAAAAAAA=="
+                                                }
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "SplitterHorizontal": {
+                            "Locked": [
+                                true,
+                                false,
+                                false,
+                                false
+                            ],
+                            "State": "AAAA/wAAAAEAAAAEAAAAggAABoIAAAA+AAAAZwD/////AQAAAAEA",
+                            "Widgets": [
+                                {
+                                    "PlayerControls": {
+                                        "ShowNext": true,
+                                        "ShowPlayPause": true,
+                                        "ShowPrevious": true,
+                                        "ShowRandomTrack": false,
+                                        "ShowStop": true
+                                    }
+                                },
+                                {
+                                    "SeekBar": {
+                                        "ShowLabels": true,
+                                        "ShowRemainingTime": false
+                                    }
+                                },
+                                {
+                                    "PlaylistControls": {
+                                    }
+                                },
+                                {
+                                    "VolumeControls": {
+                                        "Mode": 3
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        }
+    ]
+}
