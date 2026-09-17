@@ -121,11 +121,8 @@ alias startxmonad="WM=xmonad startx"
 # Aliases
 alias explore="$HOME/dicts/repl"
 
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/home/clara/google-cloud-sdk/path.zsh.inc' ]; then . '/home/clara/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/home/clara/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/clara/google-cloud-sdk/completion.zsh.inc'; fi
+# HF Path
+export HF_HOME=/home/clara/data/huggingface/ 
 
 
 # Added by Antigravity CLI installer
@@ -133,3 +130,26 @@ export PATH="/home/clara/.local/bin:$PATH"
 
 # Pi
 export PATH="/home/clara/.local/share/pi-node/node-v22.23.2-linux-x64/bin:$PATH"
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/home/clara/google-cloud-sdk/path.zsh.inc' ]; then . '/home/clara/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/home/clara/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/clara/google-cloud-sdk/completion.zsh.inc'; fi
+
+# --- red: music library (tractator) over sshfs, on demand ---
+: ${RED_HOST:=192.168.0.111}      # tractator; override with the tailnet name away from home
+RED_MNT=/mnt/red/M
+
+redmount() {
+  mountpoint -q "$RED_MNT" && { echo "red already mounted"; return 0; }
+  sshfs clara@"$RED_HOST":/mnt/red/M "$RED_MNT" \
+    -o ro,reconnect,ServerAliveInterval=15,ServerAliveCountMax=3,compression=no,cache=yes,kernel_cache \
+    && echo "red mounted ($RED_HOST)" || echo "mount failed (offline / host unreachable?)"
+}
+
+redumount() {
+  mountpoint -q "$RED_MNT" || { echo "red not mounted"; return 0; }
+  fusermount -u "$RED_MNT" 2>/dev/null && echo "red unmounted" \
+    || { echo "busy (close fooyin), forcing lazy unmount"; fusermount -uz "$RED_MNT"; }
+}
