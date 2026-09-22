@@ -1,4 +1,9 @@
-require('prose').setup({
+local ok, prose = pcall(require, 'prose')
+if not ok then
+    -- Optional local plugin (Plug '/home/clara/wmclone') not installed; skip silently.
+    return
+end
+prose.setup({
 	width = 100,
 	width_step = 4,
 	sprint_minutes = 45,

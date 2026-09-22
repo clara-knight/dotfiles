@@ -17,7 +17,7 @@ local on_attach = function(_, bufnr)
     vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, opts)
 end
 
-local servers = { 'clangd', 'pyright', 'html', 'cssls', 'htmx', 'texlab' }
+local servers = { 'clangd', 'basedpyright', 'html', 'cssls', 'htmx', 'texlab', 'ruff' }
 
 local function is_wsl2()
     local handle = io.open('/proc/version', 'r')
@@ -59,6 +59,31 @@ vim.lsp.config('texlab', {
             },
             bibtexFormatter = 'texlab',
             formatterLineLength = 80,
+        },
+    },
+})
+
+vim.lsp.config('basedpyright', {
+    settings = {
+        basedpyright = {
+            analysis = {
+                -- 'standard' matches stock pyright's default noise level.
+                -- basedpyright's own default ('recommended') reports many
+                -- more diagnostics (e.g. unknown/partial types), which is
+                -- noisy for untyped code. Per-project pyproject.toml or
+                -- basedpyrightconfig.json still overrides this.
+                typeCheckingMode = 'standard',
+                -- Hand-picked extras on top of 'standard'. All three are
+                -- (near-)zero noise on untyped code but catch real bugs:
+                --   reportUnreachable: dead code after return/raise/continue
+                --   reportImplicitStringConcatenation: accidental "a" "b" joins
+                --   reportIgnoreCommentWithoutRule: stale blanket ignores
+                diagnosticSeverityOverrides = {
+                    reportUnreachable = 'error',
+                    reportImplicitStringConcatenation = 'warning',
+                    reportIgnoreCommentWithoutRule = 'warning',
+                },
+            },
         },
     },
 })
