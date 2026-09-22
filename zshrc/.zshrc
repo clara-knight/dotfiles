@@ -121,6 +121,11 @@ alias startxmonad="WM=xmonad startx"
 # Aliases
 alias explore="$HOME/dicts/repl"
 
+# CUDA
+#
+export PATH=/usr/local/cuda/bin:$PATH
+export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
+
 # HF Path
 export HF_HOME=/home/clara/data/huggingface/ 
 
@@ -144,7 +149,7 @@ RED_MNT=/mnt/red/M
 redmount() {
   mountpoint -q "$RED_MNT" && { echo "red already mounted"; return 0; }
   sshfs clara@"$RED_HOST":/mnt/red/M "$RED_MNT" \
-    -o ro,reconnect,ServerAliveInterval=15,ServerAliveCountMax=3,compression=no,cache=yes,kernel_cache \
+    -o reconnect,ServerAliveInterval=15,ServerAliveCountMax=3,compression=no,cache=yes,kernel_cache \
     && echo "red mounted ($RED_HOST)" || echo "mount failed (offline / host unreachable?)"
 }
 
